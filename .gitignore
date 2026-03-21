@@ -1,0 +1,23 @@
+node_modules/
+.next/
+out/
+dev.db
+*.db
+fromcreate-base/
+.env
+.env.local
+# Old HTML files from base copy
+about.html
+contact.html
+faq.html
+flow-price.html
+index.html
+legal-tokushoho.html
+privacy.html
+service-community.html
+service-school.html
+service-sns.html
+service-video.html
+service.html
+assets/
+prisma/
