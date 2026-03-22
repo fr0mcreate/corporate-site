@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { staticWorks, staticBlogPosts } from '@/lib/static-data';
 import WorkCard from '@/components/WorkCard';
 import HeroCanvas from '@/components/HeroCanvas';
+import BreakoutGame from '@/components/BreakoutGame';
 
 export default function HomePage() {
   const works = staticWorks.slice(0, 6);
@@ -192,6 +193,9 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* ===== SECRET STAGE: BLOCK BREAKER ===== */}
+      <BreakoutGame />
     </>
   );
 }

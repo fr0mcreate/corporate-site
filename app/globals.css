@@ -3024,3 +3024,77 @@ body {
     display: none;
   }
 }
+
+/* ============================================
+   SECRET STAGE: BLOCK BREAKER GAME
+   ============================================ */
+
+.breakout-section {
+  padding: var(--section-padding) 0;
+  background: var(--bg);
+  border-top: 1px solid rgba(0, 255, 65, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.breakout-section::before {
+  content: '[ SECRET STAGE ]';
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-family: "DotGothic16", monospace;
+  font-size: 0.65rem;
+  color: var(--accent3);
+  opacity: 0.4;
+  letter-spacing: 0.2em;
+  animation: blink 2s steps(2) infinite;
+}
+
+.breakout-container {
+  max-width: 704px;
+  margin: 2rem auto 0;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 30px rgba(0, 255, 65, 0.03);
+  background: #050510;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.breakout-container.breakout-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.breakout-canvas {
+  display: block;
+  width: 100%;
+  image-rendering: pixelated;
+}
+
+.breakout-controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid rgba(0, 255, 65, 0.15);
+  font-family: "DotGothic16", monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .breakout-container {
+    margin: 1.5rem -1rem 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .breakout-controls {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+    font-size: 0.6rem;
+  }
+}
