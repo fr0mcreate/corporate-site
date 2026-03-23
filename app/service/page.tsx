@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ServicePage() {
     return (
         <>
-            <FixedBgVideo src="/service-bg-video.mp4" />
+            <FixedBgVideo src="/service-bg-video.mp4" loop={false} />
 
             <div className="page-header" style={{ background: 'transparent' }}>
                 <div className="container">

@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 
 interface FixedBgVideoProps {
   src: string;
+  loop?: boolean;
 }
 
-export default function FixedBgVideo({ src }: FixedBgVideoProps) {
+export default function FixedBgVideo({ src, loop = true }: FixedBgVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -40,7 +41,7 @@ export default function FixedBgVideo({ src }: FixedBgVideoProps) {
         src={src}
         muted
         autoPlay
-        loop
+        loop={loop}
         playsInline
         preload="auto"
       />

@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: 'About | FROM CREATE' };
 export default function AboutPage() {
     return (
         <>
-            <FixedBgVideo src="/about-page-bg-video.mp4" />
+            <FixedBgVideo src="/about-page-bg-video.mp4" loop={false} />
 
             <div className="page-header" style={{ background: 'transparent' }}>
                 <div className="container">
