@@ -22,8 +22,6 @@ export default function ScrollAnimations() {
   }, []);
 
   function initAnimations() {
-    const vh = window.innerHeight;
-
     // Hero title reveal
     gsap.fromTo('.hero h1',
       { opacity: 0, y: 40, scale: 0.95 },
@@ -40,65 +38,23 @@ export default function ScrollAnimations() {
       { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.8 }
     );
 
-    // ===== SECTION PIN (stacking panels with internal scroll) =====
+    // ===== STACKING SECTIONS via CSS sticky =====
+    // Apply sticky positioning and ascending z-index via JS
     let zIndex = 1;
 
-    // Pin the Hero section
     const heroEl = document.querySelector<HTMLElement>('.hero');
     if (heroEl) {
+      heroEl.style.position = 'sticky';
+      heroEl.style.top = '0';
       heroEl.style.zIndex = String(zIndex++);
-      ScrollTrigger.create({
-        trigger: heroEl,
-        start: 'top top',
-        end: '+=1',
-        pin: true,
-        pinSpacing: false,
-        anticipatePin: 1,
-      });
     }
 
-    // Pin each .section-sticky
     const stickySections = gsap.utils.toArray<HTMLElement>('.section-sticky');
     stickySections.forEach((section) => {
+      section.style.position = 'sticky';
+      section.style.top = '0';
       section.style.zIndex = String(zIndex++);
-
-      const contentHeight = section.scrollHeight;
-      const overflow = Math.max(0, contentHeight - vh);
-      const inner = section.querySelector<HTMLElement>('.container');
-
-      if (overflow > 0 && inner) {
-        // Section taller than viewport: pin and scroll content inside
-        // end = overflow (just enough scroll distance to reveal all content)
-        // pinSpacing = false (we don't want GSAP adding extra space)
-        // Instead we let the section's natural height in the DOM provide the scroll distance
-        gsap.to(inner, {
-          y: -overflow,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: `bottom+=${vh * 0.1} bottom`,
-            pin: true,
-            pinSpacing: false,
-            scrub: true,
-            anticipatePin: 1,
-          },
-        });
-      } else {
-        // Section fits in viewport: minimal pin, next section overlaps right away
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top top',
-          end: '+=1',
-          pin: true,
-          pinSpacing: false,
-          anticipatePin: 1,
-        });
-      }
     });
-
-    // Recalculate after all pins are created
-    ScrollTrigger.refresh();
 
     // Section reveals
     gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {
