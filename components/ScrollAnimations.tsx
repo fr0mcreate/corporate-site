@@ -43,14 +43,14 @@ export default function ScrollAnimations() {
     // ===== SECTION PIN (stacking panels with internal scroll) =====
     let zIndex = 1;
 
-    // Pin the Hero section (fits in viewport — simple pin)
+    // Pin the Hero section
     const heroEl = document.querySelector<HTMLElement>('.hero');
     if (heroEl) {
       heroEl.style.zIndex = String(zIndex++);
       ScrollTrigger.create({
         trigger: heroEl,
         start: 'top top',
-        end: `+=${vh}`,
+        end: '+=1',  // minimal pin — next section overlaps immediately
         pin: true,
         pinSpacing: false,
         anticipatePin: 1,
@@ -58,7 +58,6 @@ export default function ScrollAnimations() {
     }
 
     // Pin each .section-sticky
-    // If content exceeds viewport, scrub the inner .container upward
     const stickySections = gsap.utils.toArray<HTMLElement>('.section-sticky');
     stickySections.forEach((section) => {
       section.style.zIndex = String(zIndex++);
@@ -68,7 +67,8 @@ export default function ScrollAnimations() {
       const inner = section.querySelector<HTMLElement>('.container');
 
       if (overflow > 0 && inner) {
-        // Section taller than viewport: pin it and scroll content inside
+        // Section taller than viewport: pin and scroll content inside
+        // pinSpacing only adds the overflow amount (not a full extra screen)
         gsap.to(inner, {
           y: -overflow,
           ease: 'none',
@@ -83,11 +83,11 @@ export default function ScrollAnimations() {
           },
         });
       } else {
-        // Section fits in viewport: simple pin with overlap
+        // Section fits in viewport: minimal pin, next section overlaps right away
         ScrollTrigger.create({
           trigger: section,
           start: 'top top',
-          end: `+=${vh}`,
+          end: '+=1',
           pin: true,
           pinSpacing: false,
           anticipatePin: 1,
