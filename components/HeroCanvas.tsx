@@ -75,20 +75,32 @@ export default function HeroCanvas() {
         p.pulse += p.pulseSpeed;
         const pulseAlpha = p.alpha + Math.sin(p.pulse) * 0.2;
 
-        // Mouse repulsion
+        // Mouse repulsion — direct position displacement for instant response
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_RADIUS && dist > 0) {
+        const distSq = dx * dx + dy * dy;
+        const MOUSE_RADIUS_SQ = MOUSE_RADIUS * MOUSE_RADIUS;
+        if (distSq < MOUSE_RADIUS_SQ && distSq > 1) {
+          const dist = Math.sqrt(distSq);
           const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
-          const pushStrength = force * force * 1.5;
-          p.vx += (dx / dist) * pushStrength;
-          p.vy += (dy / dist) * pushStrength;
+          const push = force * force * 3;
+          p.vx += (dx / dist) * push;
+          p.vy += (dy / dist) * push;
+          // Also nudge position directly for instant feel
+          p.x += (dx / dist) * push * 0.5;
+          p.y += (dy / dist) * push * 0.5;
         }
 
         // Damping
-        p.vx *= 0.95;
-        p.vy *= 0.95;
+        p.vx *= 0.93;
+        p.vy *= 0.93;
+
+        // Speed limit
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed > 8) {
+          p.vx = (p.vx / speed) * 8;
+          p.vy = (p.vy / speed) * 8;
+        }
 
         p.x += p.vx;
         p.y += p.vy;
@@ -99,21 +111,24 @@ export default function HeroCanvas() {
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
 
-        // Draw connections
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const cx = p.x - p2.x;
-          const cy = p.y - p2.y;
-          const cdist = Math.sqrt(cx * cx + cy * cy);
-          if (cdist < CONNECTION_DIST) {
-            const lineAlpha = (1 - cdist / CONNECTION_DIST) * 0.15;
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = lineAlpha;
-            ctx.lineWidth = 0.5;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
+        // Draw connections (only check nearby particles, skip most for performance)
+        if (i % 3 === 0) {
+          for (let j = i + 1; j < particles.length; j += 2) {
+            const p2 = particles[j];
+            const cx = p.x - p2.x;
+            const cy = p.y - p2.y;
+            const cdistSq = cx * cx + cy * cy;
+            if (cdistSq < CONNECTION_DIST * CONNECTION_DIST) {
+              const cdist = Math.sqrt(cdistSq);
+              const lineAlpha = (1 - cdist / CONNECTION_DIST) * 0.12;
+              ctx.strokeStyle = p.color;
+              ctx.globalAlpha = lineAlpha;
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
           }
         }
 
