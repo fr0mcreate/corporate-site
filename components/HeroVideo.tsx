@@ -15,18 +15,28 @@ export default function HeroVideo() {
       video.play().catch(() => {});
     };
 
-    // Already loaded (cached / fast load)
+    // When video ends, pause for 5 seconds on last frame, then replay
+    const handleEnded = () => {
+      // Video stays on last frame (paused)
+      setTimeout(() => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      }, 5000);
+    };
+
     if (video.readyState >= 3) {
       handleReady();
-      return;
+    } else {
+      video.addEventListener('canplaythrough', handleReady);
+      video.addEventListener('loadeddata', handleReady);
     }
 
-    video.addEventListener('canplaythrough', handleReady);
-    // Fallback: also listen for loadeddata
-    video.addEventListener('loadeddata', handleReady);
+    video.addEventListener('ended', handleEnded);
+
     return () => {
       video.removeEventListener('canplaythrough', handleReady);
       video.removeEventListener('loadeddata', handleReady);
+      video.removeEventListener('ended', handleEnded);
     };
   }, []);
 
@@ -38,7 +48,6 @@ export default function HeroVideo() {
         src="/hero-video.mp4"
         muted
         autoPlay
-        loop
         playsInline
         preload="auto"
       />
