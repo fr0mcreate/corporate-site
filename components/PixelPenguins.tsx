@@ -19,55 +19,76 @@ interface Penguin {
   targetY: number;
 }
 
-// 8x10 pixel art penguin (more visible)
-// 1=outline, 2=white, 3=orange, 4=cyan eyes, 5=dark body
+// 12x16 pixel art penguin — classic tuxedo penguin silhouette
+// 0=transparent, 1=black(outline), 2=white(belly), 3=orange(beak/feet), 4=cyan(eye), 5=dark blue-black(body)
 const WALK1 = [
-  [0,0,0,1,1,1,0,0],
-  [0,0,1,5,5,5,1,0],
-  [0,1,5,4,5,4,5,1],
-  [0,1,5,5,3,5,5,1],
-  [1,5,5,5,5,5,5,5],
-  [1,5,2,2,2,2,5,1],
-  [0,1,2,2,2,2,1,0],
-  [0,1,5,2,2,5,1,0],
-  [0,0,1,0,0,1,0,0],
-  [0,1,3,0,0,3,1,0],
+  [0,0,0,0,1,1,1,1,0,0,0,0],
+  [0,0,0,1,5,5,5,5,1,0,0,0],
+  [0,0,1,5,5,5,5,5,5,1,0,0],
+  [0,0,1,5,4,5,5,4,5,1,0,0],
+  [0,0,1,5,5,3,3,5,5,1,0,0],
+  [0,1,5,5,5,5,5,5,5,5,1,0],
+  [0,1,5,5,2,2,2,2,5,5,1,0],
+  [1,5,5,2,2,2,2,2,2,5,5,1],
+  [1,5,5,2,2,2,2,2,2,5,5,1],
+  [1,5,5,2,2,2,2,2,2,5,5,1],
+  [0,1,5,5,2,2,2,2,5,5,1,0],
+  [0,1,5,5,5,2,2,5,5,5,1,0],
+  [0,0,1,5,5,5,5,5,5,1,0,0],
+  [0,0,0,1,1,5,5,1,1,0,0,0],
+  [0,0,1,3,3,1,1,3,3,1,0,0],
+  [0,0,1,3,3,0,0,3,3,1,0,0],
 ];
 
 const WALK2 = [
-  [0,0,0,1,1,1,0,0],
-  [0,0,1,5,5,5,1,0],
-  [0,1,5,4,5,4,5,1],
-  [0,1,5,5,3,5,5,1],
-  [1,5,5,5,5,5,5,5],
-  [1,5,2,2,2,2,5,1],
-  [0,1,2,2,2,2,1,0],
-  [0,1,5,2,2,5,1,0],
-  [0,0,0,1,1,0,0,0],
-  [0,0,1,3,3,1,0,0],
+  [0,0,0,0,1,1,1,1,0,0,0,0],
+  [0,0,0,1,5,5,5,5,1,0,0,0],
+  [0,0,1,5,5,5,5,5,5,1,0,0],
+  [0,0,1,5,4,5,5,4,5,1,0,0],
+  [0,0,1,5,5,3,3,5,5,1,0,0],
+  [0,1,5,5,5,5,5,5,5,5,1,0],
+  [0,1,5,5,2,2,2,2,5,5,1,0],
+  [1,5,5,2,2,2,2,2,2,5,5,1],
+  [1,5,5,2,2,2,2,2,2,5,5,1],
+  [1,5,5,2,2,2,2,2,2,5,5,1],
+  [0,1,5,5,2,2,2,2,5,5,1,0],
+  [0,1,5,5,5,2,2,5,5,5,1,0],
+  [0,0,1,5,5,5,5,5,5,1,0,0],
+  [0,0,0,1,5,5,5,5,1,0,0,0],
+  [0,0,0,1,3,3,0,0,1,0,0,0],
+  [0,0,0,0,1,1,1,3,3,1,0,0],
 ];
 
 const IDLE = [
-  [0,0,0,1,1,1,0,0],
-  [0,0,1,5,5,5,1,0],
-  [0,1,5,4,5,4,5,1],
-  [0,1,5,5,3,5,5,1],
-  [0,1,5,5,5,5,5,1],
-  [0,1,2,2,2,2,1,0],
-  [0,1,2,2,2,2,1,0],
-  [0,0,1,2,2,1,0,0],
-  [0,0,1,0,0,1,0,0],
-  [0,0,3,0,0,3,0,0],
+  [0,0,0,0,1,1,1,1,0,0,0,0],
+  [0,0,0,1,5,5,5,5,1,0,0,0],
+  [0,0,1,5,5,5,5,5,5,1,0,0],
+  [0,0,1,5,1,5,5,1,5,1,0,0],
+  [0,0,1,5,5,3,3,5,5,1,0,0],
+  [0,0,1,5,5,5,5,5,5,1,0,0],
+  [0,1,5,5,2,2,2,2,5,5,1,0],
+  [0,1,5,2,2,2,2,2,2,5,1,0],
+  [0,1,5,2,2,2,2,2,2,5,1,0],
+  [0,1,5,2,2,2,2,2,2,5,1,0],
+  [0,0,1,5,2,2,2,2,5,1,0,0],
+  [0,0,1,5,5,2,2,5,5,1,0,0],
+  [0,0,0,1,5,5,5,5,1,0,0,0],
+  [0,0,0,0,1,5,5,1,0,0,0,0],
+  [0,0,0,1,3,3,3,3,1,0,0,0],
+  [0,0,0,1,3,0,0,3,1,0,0,0],
 ];
 
 const FRAMES = [WALK1, WALK2];
 
+const SPRITE_W = 12;
+const SPRITE_H = 16;
+
 const COLORS: Record<number, string> = {
-  1: '#000000',
-  2: '#ffffff',
-  3: '#ff6600',
-  4: '#00ff41',
-  5: '#ccddff',
+  1: '#111118',     // outline - very dark
+  2: '#e8eef5',     // white belly
+  3: '#ff8800',     // orange beak/feet
+  4: '#00ff41',     // bright green eyes (retro theme)
+  5: '#1a1a2e',     // dark body
 };
 
 export default function PixelPenguins() {
@@ -84,6 +105,8 @@ export default function PixelPenguins() {
     const parent = canvas.parentElement;
     if (!parent) return;
 
+    const PENGUIN_SCALE = 3;
+
     function resize() {
       if (!canvas || !parent) return;
       canvas.width = parent.offsetWidth;
@@ -98,7 +121,6 @@ export default function PixelPenguins() {
       const rects: DOMRect[] = [];
       cards.forEach((el) => {
         const r = el.getBoundingClientRect();
-        // Convert to canvas-relative coordinates
         rects.push(new DOMRect(
           r.left - parentRect.left,
           r.top - parentRect.top,
@@ -112,14 +134,11 @@ export default function PixelPenguins() {
     resize();
     window.addEventListener('resize', resize);
 
-    // Larger penguins, more of them
-    const PENGUIN_SIZE = 4;
     const count = 8;
     const penguins: Penguin[] = [];
-    const pw = 8 * PENGUIN_SIZE;
-    const ph = 10 * PENGUIN_SIZE;
+    const pw = SPRITE_W * PENGUIN_SCALE;
+    const ph = SPRITE_H * PENGUIN_SCALE;
     for (let i = 0; i < count; i++) {
-      // Start penguins at edges (top/bottom/left/right) to avoid cards in center
       const edge = i % 4;
       let startX = 0;
       let startY = 0;
@@ -138,8 +157,8 @@ export default function PixelPenguins() {
         dirY: Math.random() > 0.5 ? 1 : -1,
         state: 'walk',
         idleTimer: 0,
-        size: PENGUIN_SIZE,
-        speed: 0.5 + Math.random() * 0.8,
+        size: PENGUIN_SCALE,
+        speed: 0.4 + Math.random() * 0.6,
         targetX: Math.random() * canvas.width,
         targetY: Math.random() * canvas.height,
       });
@@ -148,22 +167,20 @@ export default function PixelPenguins() {
 
     function pickNewTarget(p: Penguin) {
       if (!canvas) return;
-      const pw = 8 * p.size;
-      const ph = 10 * p.size;
+      const ppw = SPRITE_W * p.size;
+      const pph = SPRITE_H * p.size;
       const margin = 20;
-      // Pick random target, avoid obstacles
       for (let attempt = 0; attempt < 20; attempt++) {
-        const tx = margin + Math.random() * (canvas.width - pw - margin * 2);
-        const ty = margin + Math.random() * (canvas.height - ph - margin * 2);
-        if (!isInsideObstacle(tx, ty, pw, ph)) {
+        const tx = margin + Math.random() * (canvas.width - ppw - margin * 2);
+        const ty = margin + Math.random() * (canvas.height - pph - margin * 2);
+        if (!isInsideObstacle(tx, ty, ppw, pph)) {
           p.targetX = tx;
           p.targetY = ty;
           return;
         }
       }
-      // Fallback
-      p.targetX = margin + Math.random() * (canvas.width - pw - margin * 2);
-      p.targetY = margin + Math.random() * (canvas.height - ph - margin * 2);
+      p.targetX = margin + Math.random() * (canvas.width - ppw - margin * 2);
+      p.targetY = margin + Math.random() * (canvas.height - pph - margin * 2);
     }
 
     function isInsideObstacle(x: number, y: number, w: number, h: number): boolean {
@@ -194,7 +211,7 @@ export default function PixelPenguins() {
           const pixel = sprite[row][col];
           if (pixel === 0) continue;
           ctx.fillStyle = COLORS[pixel] || '#fff';
-          const px = flipX ? x + (7 - col) * size : x + col * size;
+          const px = flipX ? x + (SPRITE_W - 1 - col) * size : x + col * size;
           const py = y + row * size;
           ctx.fillRect(px, py, size, size);
         }
@@ -207,22 +224,19 @@ export default function PixelPenguins() {
       if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Refresh obstacles periodically (layout may change on scroll)
       frameCount++;
       if (frameCount % 120 === 0) updateObstacles();
 
-      const pw = 8 * PENGUIN_SIZE;
-      const ph = 10 * PENGUIN_SIZE;
+      const ppw = SPRITE_W * PENGUIN_SCALE;
+      const pph = SPRITE_H * PENGUIN_SCALE;
 
       for (const p of penguins) {
         if (p.state === 'walk') {
-          // Move toward target
           const dx = p.targetX - p.x;
           const dy = p.targetY - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < 5) {
-            // Reached target — idle briefly then pick new target
             p.state = 'idle';
             p.idleTimer = 40 + Math.floor(Math.random() * 100);
             p.vx = 0;
@@ -233,13 +247,10 @@ export default function PixelPenguins() {
             p.dirX = p.vx >= 0 ? 1 : -1;
           }
 
-          // Check obstacle collision and steer away
           const nextX = p.x + p.vx;
           const nextY = p.y + p.vy;
-          if (isInsideObstacle(nextX, nextY, pw, ph)) {
-            // Push away from obstacle and pick new target
+          if (isInsideObstacle(nextX, nextY, ppw, pph)) {
             pickNewTarget(p);
-            // Move in opposite direction briefly
             p.x -= p.vx * 3;
             p.y -= p.vy * 3;
             p.vx = 0;
@@ -249,10 +260,8 @@ export default function PixelPenguins() {
             p.y = nextY;
           }
 
-          // If currently inside obstacle (started there), escape
-          if (isInsideObstacle(p.x, p.y, pw, ph)) {
+          if (isInsideObstacle(p.x, p.y, ppw, pph)) {
             pickNewTarget(p);
-            // Move toward target aggressively
             const eDx = p.targetX - p.x;
             const eDy = p.targetY - p.y;
             const eDist = Math.sqrt(eDx * eDx + eDy * eDy) || 1;
@@ -260,13 +269,11 @@ export default function PixelPenguins() {
             p.y += (eDy / eDist) * 5;
           }
 
-          // Clamp to canvas
-          p.x = Math.max(0, Math.min(canvas.width - pw, p.x));
-          p.y = Math.max(0, Math.min(canvas.height - ph, p.y));
+          p.x = Math.max(0, Math.min(canvas.width - ppw, p.x));
+          p.y = Math.max(0, Math.min(canvas.height - pph, p.y));
 
-          // Animate walking frames
           p.frameTimer++;
-          if (p.frameTimer > 10) {
+          if (p.frameTimer > 12) {
             p.frameTimer = 0;
             p.frame = (p.frame + 1) % 2;
           }
@@ -282,13 +289,13 @@ export default function PixelPenguins() {
           drawSprite(ctx, IDLE, p.x, p.y, p.size, p.dirX === -1);
         }
 
-        // Small shadow
-        ctx.fillStyle = 'rgba(0, 255, 65, 0.06)';
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 255, 65, 0.08)';
         ctx.beginPath();
         ctx.ellipse(
-          p.x + pw / 2,
-          p.y + ph + 1,
-          pw / 2.5,
+          p.x + ppw / 2,
+          p.y + pph + 1,
+          ppw / 2.5,
           3,
           0, 0, Math.PI * 2
         );
@@ -298,7 +305,6 @@ export default function PixelPenguins() {
       animRef.current = requestAnimationFrame(animate);
     }
 
-    // Initial target assignment
     for (const p of penguins) {
       pickNewTarget(p);
     }
