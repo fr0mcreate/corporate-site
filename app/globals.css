@@ -546,7 +546,7 @@ button {
 .section {
   padding: var(--section-padding) 0;
   position: relative;
-  background: var(--bg);
+  background: transparent;
 }
 
 .section-header {
@@ -873,12 +873,11 @@ button {
    ---------------------------------------- */
 .cta-section {
   padding: var(--section-padding) 0;
-  background: var(--bg-elevated);
+  background: transparent;
   border-top: 3px solid var(--border-dim);
   border-bottom: 3px solid var(--border-dim);
   text-align: center;
   position: relative;
-  z-index: 2;
 }
 
 .cta-section h2 {
@@ -3369,7 +3368,8 @@ body {
 /* Main content above opening */
 main#main {
   position: relative;
-  z-index: 10;
+  z-index: 2;
+  /* background transparent so overlay behind is visible */
 }
 
 /* ============================================
@@ -3377,13 +3377,8 @@ main#main {
    ============================================ */
 .section-sticky {
   position: relative;
-  /* z-index set by JS for stacking order */
-  background: var(--bg);
-}
-
-.section-works.section-sticky,
-.section-blog.section-sticky {
-  background: var(--bg-elevated);
+  /* background handled by SectionOverlay */
+  background: transparent;
 }
 
 /* Sticky background — stays pinned at top while content scrolls over it */

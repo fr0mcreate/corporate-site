@@ -78,7 +78,7 @@ export default function SectionOverlay() {
       ref={containerRef}
       className="section-overlay-container"
       aria-hidden="true"
-      style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}
+      style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none' }}
     />
   );
 }
