@@ -36,17 +36,29 @@ export default function ScrollAnimations() {
       { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.8 }
     );
 
-    // Parallax grid in hero
-    gsap.to('.hero::after', {
-      backgroundPosition: '16px 50px',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero',
+    // ===== SECTION PIN (scroll-overlap effect) =====
+    // Pin each .section-sticky so next section scrolls over it
+    gsap.utils.toArray<HTMLElement>('.section-sticky').forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
         start: 'top top',
         end: 'bottom top',
-        scrub: 1,
-      },
+        pin: true,
+        pinSpacing: false,
+      });
     });
+
+    // Also pin the Hero section
+    const heroEl = document.querySelector('.hero');
+    if (heroEl) {
+      ScrollTrigger.create({
+        trigger: heroEl,
+        start: 'top top',
+        end: 'bottom top',
+        pin: true,
+        pinSpacing: false,
+      });
+    }
 
     // Section reveals
     gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {

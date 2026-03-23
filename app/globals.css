@@ -370,8 +370,7 @@ button {
    Hero Section
    ---------------------------------------- */
 .hero {
-  position: sticky;
-  top: 0;
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -3383,8 +3382,7 @@ main#main {
   background: var(--bg);
 }
 
-/* Sticky section overlay effect (each section sticks, next overlaps) */
+/* Section overlay classes (managed by GSAP ScrollTrigger pin) */
 .section-sticky {
-  position: sticky;
-  top: 0;
+  /* pinned by JS, no CSS sticky needed */
 }
