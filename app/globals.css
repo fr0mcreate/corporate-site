@@ -3369,7 +3369,7 @@ body {
 /* Main content above opening */
 main#main {
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 
 /* ============================================
@@ -3378,6 +3378,12 @@ main#main {
 .section-sticky {
   position: relative;
   /* z-index set by JS for stacking order */
+  background: var(--bg);
+}
+
+.section-works.section-sticky,
+.section-blog.section-sticky {
+  background: var(--bg-elevated);
 }
 
 /* Sticky background — stays pinned at top while content scrolls over it */
@@ -3395,9 +3401,10 @@ main#main {
   background: var(--bg-elevated);
 }
 
-/* Content layer — flows normally over the stuck background */
+/* Content layer — flows normally, must be above fixed overlay layers */
 .section-sticky > .section-content {
   position: relative;
+  z-index: 10;
 }
 
 /* Hero uses same pattern */
@@ -3416,6 +3423,7 @@ main#main {
 
 .hero > .section-content {
   position: relative;
+  z-index: 10;
   min-height: 100vh;
   display: flex;
   align-items: center;

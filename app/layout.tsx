@@ -7,6 +7,7 @@ import LoadingScreen from '@/components/LoadingScreen';
 import ScrollAnimations from '@/components/ScrollAnimations';
 import MarqueeBorder from '@/components/MarqueeBorder';
 import ScrollProgress from '@/components/ScrollProgress';
+import SectionOverlay from '@/components/SectionOverlay';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <ScrollAnimations />
         <ScrollProgress />
+        <SectionOverlay />
         <MarqueeBorder />
         <a href="#main" className="skip-link">メインコンテンツへスキップ</a>
         <Header />
