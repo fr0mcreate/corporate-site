@@ -3217,7 +3217,7 @@ body {
     0 0 30px var(--accent-glow),
     0 0 60px var(--accent-glow),
     0 0 120px rgba(0, 255, 65, 0.2);
-  animation: openingLogoReveal 4s ease-out 0s both;
+  animation: openingLogoReveal 5s ease-out 0s both;
 }
 
 .opening-bracket {
@@ -3233,7 +3233,7 @@ body {
   text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
   margin-top: 1rem;
   opacity: 0;
-  animation: openingTaglineReveal 4s ease-out 0s both;
+  animation: openingTaglineReveal 5s ease-out 0s both;
 }
 
 @keyframes openingLogoReveal {
