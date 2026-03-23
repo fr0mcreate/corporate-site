@@ -3228,9 +3228,9 @@ body {
 .opening-tagline {
   font-family: "DotGothic16", monospace;
   font-size: clamp(0.8rem, 2vw, 1.2rem);
-  color: #ffffff;
+  color: var(--accent);
   letter-spacing: 0.3em;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
   margin-top: 1rem;
   opacity: 0;
   animation: openingTaglineReveal 4s ease-out 0s both;
