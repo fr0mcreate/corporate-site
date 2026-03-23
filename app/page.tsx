@@ -84,7 +84,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== SERVICE ===== */}
-      <section className="section section-service">
+      <section className="section section-service section-sticky">
         <div className="container">
           <header className="section-header">
             <p className="section-kicker">STAGE 2 / SERVICE</p>
@@ -121,7 +121,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== WORKS ===== */}
-      <section id="works" className="section section-works" style={{ background: 'var(--bg-elevated)' }}>
+      <section id="works" className="section section-works section-sticky" style={{ background: 'var(--bg-elevated)' }}>
         <div className="container">
           <header className="section-header">
             <p className="section-kicker">STAGE 3 / WORKS</p>
@@ -140,7 +140,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== STRENGTH ===== */}
-      <section className="section section-strength">
+      <section className="section section-strength section-sticky">
         <div className="container">
           <header className="section-header">
             <p className="section-kicker">STAGE 4 / STRENGTH</p>
@@ -175,7 +175,7 @@ export default function HomePage() {
 
       {/* ===== BLOG ===== */}
       {latestPosts.length > 0 && (
-        <section className="section section-blog" style={{ background: 'var(--bg-elevated)' }}>
+        <section className="section section-blog section-sticky" style={{ background: 'var(--bg-elevated)' }}>
           <div className="container">
             <header className="section-header">
               <p className="section-kicker">STAGE 5 / BLOG</p>
@@ -202,7 +202,7 @@ export default function HomePage() {
       )}
 
       {/* ===== CTA ===== */}
-      <section className="cta-section">
+      <section className="cta-section section-sticky">
         <div className="cta-bg-effect" aria-hidden="true" />
         <div className="container">
           <p className="section-kicker">FINAL STAGE / CONTACT</p>
