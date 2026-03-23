@@ -27,8 +27,8 @@ export default function HeroCanvas() {
     if (!ctx) return;
 
     const colors = ['#00ff41', '#00e5ff', '#ff0090'];
-    const PARTICLE_COUNT = 480;
-    const CONNECTION_DIST = 80;
+    const PARTICLE_COUNT = 250;
+    const CONNECTION_DIST = 90;
     const MOUSE_RADIUS = 300;
 
     function resize() {
