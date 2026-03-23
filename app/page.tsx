@@ -180,8 +180,9 @@ export default function HomePage() {
 
       {/* ===== BLOG ===== */}
       {latestPosts.length > 0 && (
-        <section className="section section-blog section-sticky">
-          <div className="container">
+        <section className="section section-blog section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+          <SectionVideo src="/blog-bg-video.mp4" />
+          <div className="container" style={{ position: 'relative', zIndex: 1 }}>
             <header className="section-header">
               <p className="section-kicker">STAGE 5 / BLOG</p>
               <h2 className="glitch-text" data-text="Blog">Blog</h2>
