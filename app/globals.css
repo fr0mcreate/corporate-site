@@ -3164,3 +3164,199 @@ body {
 .hero-video-loaded ~ .hero-canvas {
   opacity: 0.3;
 }
+
+/* ============================================
+   OPENING PAGE (Full-screen video intro)
+   ============================================ */
+
+.opening {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #050510;
+  z-index: 1;
+}
+
+/* Scanlines on opening */
+.opening-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+}
+
+/* Center content overlay */
+.opening-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  pointer-events: none;
+}
+
+.opening-logo {
+  font-family: "DotGothic16", monospace;
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-shadow:
+    0 0 30px var(--accent-glow),
+    0 0 60px var(--accent-glow),
+    0 0 120px rgba(0, 255, 65, 0.2);
+  animation: openingLogoReveal 1.5s ease-out 3s both;
+}
+
+.opening-bracket {
+  color: var(--accent3);
+  font-size: 0.8em;
+}
+
+.opening-tagline {
+  font-family: "DotGothic16", monospace;
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  letter-spacing: 0.3em;
+  margin-top: 1rem;
+  opacity: 0;
+  animation: openingTaglineReveal 1s ease-out 4s both;
+}
+
+@keyframes openingLogoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes openingTaglineReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll hint at bottom of opening */
+.opening-scroll-hint {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  font-family: "DotGothic16", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  opacity: 0;
+  animation: openingScrollHintReveal 1s ease-out 5s both;
+}
+
+.opening-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollLineMove 2s ease-in-out infinite;
+}
+
+@keyframes openingScrollHintReveal {
+  0% { opacity: 0; }
+  100% { opacity: 0.6; }
+}
+
+/* Video within opening — override z-index */
+.opening .hero-video-wrap {
+  z-index: 1;
+}
+
+.opening .hero-video-overlay {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 4px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(5, 5, 16, 0.45) 0%,
+      rgba(5, 5, 16, 0.2) 40%,
+      rgba(5, 5, 16, 0.5) 100%
+    );
+}
+
+/* Vignette effect on opening */
+.opening::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(5, 5, 16, 0.6) 100%
+  );
+}
+
+/* Border glow between opening and hero */
+.opening::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  z-index: 4;
+  opacity: 0.5;
+}
+
+/* Adjust hero section — no longer needs to account for full opening height */
+.hero {
+  padding-top: calc(28px + 72px + 2rem);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .opening-logo {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    letter-spacing: 0.1em;
+  }
+
+  .opening-tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+  }
+
+  .opening-scroll-hint {
+    bottom: 2rem;
+  }
+}

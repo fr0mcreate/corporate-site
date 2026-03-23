@@ -11,9 +11,26 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ===== HERO ===== */}
-      <section className="hero">
+      {/* ===== OPENING: 全画面映像ページ ===== */}
+      <section className="opening">
         <HeroVideo />
+        <div className="opening-scanlines" aria-hidden="true" />
+        <div className="opening-content">
+          <div className="opening-logo">
+            <span className="opening-bracket">[</span>
+            FR0M CREATE
+            <span className="opening-bracket">]</span>
+          </div>
+          <p className="opening-tagline">理想を、現実に。</p>
+        </div>
+        <div className="opening-scroll-hint" aria-hidden="true">
+          <span>SCROLL</span>
+          <div className="opening-scroll-line" />
+        </div>
+      </section>
+
+      {/* ===== HERO: 従来のメインヒーロー ===== */}
+      <section className="hero">
         <HeroCanvas />
         <div className="hero-grid-bg" aria-hidden="true" />
         <div className="hero-scanlines" aria-hidden="true" />
