@@ -144,8 +144,9 @@ export default function HomePage() {
       </section>
 
       {/* ===== STRENGTH ===== */}
-      <section className="section section-strength section-sticky">
-        <div className="container">
+      <section className="section section-strength section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+        <SectionVideo src="/strength-bg-video.mp4" />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <header className="section-header">
             <p className="section-kicker">STAGE 4 / STRENGTH</p>
             <h2 className="glitch-text" data-text="Strength">Strength</h2>
