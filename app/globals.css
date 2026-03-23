@@ -3400,6 +3400,10 @@ main#main {
   background: var(--bg);
 }
 
+.section-service.section-sticky {
+  background: #0a1628;
+}
+
 .section-works.section-sticky {
   background: var(--bg-elevated);
 }
