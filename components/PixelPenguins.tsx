@@ -6,107 +6,186 @@ interface Penguin {
   x: number;
   y: number;
   vx: number;
+  vy: number;
   frame: number;
   frameTimer: number;
-  direction: 1 | -1;
-  state: 'walk' | 'idle' | 'jump';
+  dirX: 1 | -1;
+  dirY: 1 | -1;
+  state: 'walk' | 'idle';
   idleTimer: number;
-  jumpVy: number;
-  groundY: number;
   size: number;
+  speed: number;
+  targetX: number;
+  targetY: number;
 }
 
-// 8x8 pixel art penguin sprite data (1 = black, 2 = white, 3 = orange, 4 = blue/accent, 0 = transparent)
-const PENGUIN_WALK1 = [
-  [0,0,0,1,1,0,0,0],
-  [0,0,1,2,2,1,0,0],
-  [0,0,1,2,2,1,0,0],
-  [0,1,1,4,4,1,1,0],
+// 8x10 pixel art penguin (more visible)
+// 1=outline, 2=white, 3=orange, 4=cyan eyes, 5=dark body
+const WALK1 = [
+  [0,0,0,1,1,1,0,0],
+  [0,0,1,5,5,5,1,0],
+  [0,1,5,4,5,4,5,1],
+  [0,1,5,5,3,5,5,1],
+  [1,5,5,5,5,5,5,5],
+  [1,5,2,2,2,2,5,1],
   [0,1,2,2,2,2,1,0],
-  [0,0,1,2,2,1,0,0],
+  [0,1,5,2,2,5,1,0],
   [0,0,1,0,0,1,0,0],
   [0,1,3,0,0,3,1,0],
 ];
 
-const PENGUIN_WALK2 = [
-  [0,0,0,1,1,0,0,0],
-  [0,0,1,2,2,1,0,0],
-  [0,0,1,2,2,1,0,0],
-  [0,1,1,4,4,1,1,0],
+const WALK2 = [
+  [0,0,0,1,1,1,0,0],
+  [0,0,1,5,5,5,1,0],
+  [0,1,5,4,5,4,5,1],
+  [0,1,5,5,3,5,5,1],
+  [1,5,5,5,5,5,5,5],
+  [1,5,2,2,2,2,5,1],
   [0,1,2,2,2,2,1,0],
-  [0,0,1,2,2,1,0,0],
+  [0,1,5,2,2,5,1,0],
   [0,0,0,1,1,0,0,0],
   [0,0,1,3,3,1,0,0],
 ];
 
-const PENGUIN_IDLE = [
-  [0,0,0,1,1,0,0,0],
-  [0,0,1,2,2,1,0,0],
-  [0,0,1,2,2,1,0,0],
-  [0,1,1,4,4,1,1,0],
+const IDLE = [
+  [0,0,0,1,1,1,0,0],
+  [0,0,1,5,5,5,1,0],
+  [0,1,5,4,5,4,5,1],
+  [0,1,5,5,3,5,5,1],
+  [0,1,5,5,5,5,5,1],
+  [0,1,2,2,2,2,1,0],
   [0,1,2,2,2,2,1,0],
   [0,0,1,2,2,1,0,0],
   [0,0,1,0,0,1,0,0],
   [0,0,3,0,0,3,0,0],
 ];
 
-const FRAMES = [PENGUIN_WALK1, PENGUIN_WALK2];
+const FRAMES = [WALK1, WALK2];
 
-const PIXEL_COLORS: Record<number, string> = {
-  1: '#111111',       // outline black
-  2: '#e8e8e8',       // white belly
-  3: '#ff8c00',       // orange feet/beak
-  4: '#00e5ff',       // eyes (accent2 cyan)
+const COLORS: Record<number, string> = {
+  1: '#1a1a2e',
+  2: '#e8e8e8',
+  3: '#ff8c00',
+  4: '#00e5ff',
+  5: '#2a2a4a',
 };
 
 export default function PixelPenguins() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const penguinsRef = useRef<Penguin[]>([]);
   const animRef = useRef<number>(0);
+  const obstaclesRef = useRef<DOMRect[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+    const parent = canvas.parentElement;
+    if (!parent) return;
 
     function resize() {
-      if (!canvas) return;
-      const parent = canvas.parentElement;
-      if (!parent) return;
+      if (!canvas || !parent) return;
       canvas.width = parent.offsetWidth;
       canvas.height = parent.offsetHeight;
+      updateObstacles();
     }
+
+    function updateObstacles() {
+      if (!parent || !canvas) return;
+      const parentRect = parent.getBoundingClientRect();
+      const cards = parent.querySelectorAll('.card, .service-card, .btn, .section-header');
+      const rects: DOMRect[] = [];
+      cards.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        // Convert to canvas-relative coordinates
+        rects.push(new DOMRect(
+          r.left - parentRect.left,
+          r.top - parentRect.top,
+          r.width,
+          r.height
+        ));
+      });
+      obstaclesRef.current = rects;
+    }
+
     resize();
     window.addEventListener('resize', resize);
 
-    // Create penguins
-    const count = 5;
+    // Larger penguins, more of them
+    const PENGUIN_SIZE = 4;
+    const count = 8;
     const penguins: Penguin[] = [];
     for (let i = 0; i < count; i++) {
-      const size = 3 + Math.floor(Math.random() * 2); // pixel size 3-4
+      const pw = 8 * PENGUIN_SIZE;
+      const ph = 10 * PENGUIN_SIZE;
       penguins.push({
-        x: Math.random() * (canvas.width - 40) + 20,
-        y: 0,
-        vx: (0.3 + Math.random() * 0.5) * (Math.random() > 0.5 ? 1 : -1),
+        x: Math.random() * (canvas.width - pw),
+        y: Math.random() * (canvas.height - ph),
+        vx: 0,
+        vy: 0,
         frame: 0,
         frameTimer: 0,
-        direction: Math.random() > 0.5 ? 1 : -1,
+        dirX: Math.random() > 0.5 ? 1 : -1,
+        dirY: Math.random() > 0.5 ? 1 : -1,
         state: 'walk',
         idleTimer: 0,
-        jumpVy: 0,
-        groundY: 0,
-        size,
+        size: PENGUIN_SIZE,
+        speed: 0.5 + Math.random() * 0.8,
+        targetX: Math.random() * canvas.width,
+        targetY: Math.random() * canvas.height,
       });
     }
     penguinsRef.current = penguins;
 
-    function drawSprite(ctx: CanvasRenderingContext2D, sprite: number[][], x: number, y: number, size: number, flipX: boolean) {
+    function pickNewTarget(p: Penguin) {
+      if (!canvas) return;
+      const pw = 8 * p.size;
+      const ph = 10 * p.size;
+      const margin = 20;
+      // Pick random target, avoid obstacles
+      for (let attempt = 0; attempt < 20; attempt++) {
+        const tx = margin + Math.random() * (canvas.width - pw - margin * 2);
+        const ty = margin + Math.random() * (canvas.height - ph - margin * 2);
+        if (!isInsideObstacle(tx, ty, pw, ph)) {
+          p.targetX = tx;
+          p.targetY = ty;
+          return;
+        }
+      }
+      // Fallback
+      p.targetX = margin + Math.random() * (canvas.width - pw - margin * 2);
+      p.targetY = margin + Math.random() * (canvas.height - ph - margin * 2);
+    }
+
+    function isInsideObstacle(x: number, y: number, w: number, h: number): boolean {
+      const pad = 15;
+      for (const r of obstaclesRef.current) {
+        if (
+          x + w > r.x - pad &&
+          x < r.x + r.width + pad &&
+          y + h > r.y - pad &&
+          y < r.y + r.height + pad
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function drawSprite(
+      ctx: CanvasRenderingContext2D,
+      sprite: number[][],
+      x: number,
+      y: number,
+      size: number,
+      flipX: boolean
+    ) {
       for (let row = 0; row < sprite.length; row++) {
         for (let col = 0; col < sprite[row].length; col++) {
           const pixel = sprite[row][col];
           if (pixel === 0) continue;
-          ctx.fillStyle = PIXEL_COLORS[pixel] || '#fff';
+          ctx.fillStyle = COLORS[pixel] || '#fff';
           const px = flipX ? x + (7 - col) * size : x + col * size;
           const py = y + row * size;
           ctx.fillRect(px, py, size, size);
@@ -114,84 +193,91 @@ export default function PixelPenguins() {
       }
     }
 
+    let frameCount = 0;
+
     function animate() {
       if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (const p of penguins) {
-        // Ground position (bottom of canvas minus penguin height)
-        p.groundY = canvas.height - 8 * p.size - 10;
-        if (p.y === 0) p.y = p.groundY;
+      // Refresh obstacles periodically (layout may change on scroll)
+      frameCount++;
+      if (frameCount % 120 === 0) updateObstacles();
 
-        // State machine
+      const pw = 8 * PENGUIN_SIZE;
+      const ph = 10 * PENGUIN_SIZE;
+
+      for (const p of penguins) {
         if (p.state === 'walk') {
-          p.x += p.vx * p.direction;
+          // Move toward target
+          const dx = p.targetX - p.x;
+          const dy = p.targetY - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 5) {
+            // Reached target — idle briefly then pick new target
+            p.state = 'idle';
+            p.idleTimer = 40 + Math.floor(Math.random() * 100);
+            p.vx = 0;
+            p.vy = 0;
+          } else {
+            p.vx = (dx / dist) * p.speed;
+            p.vy = (dy / dist) * p.speed;
+            p.dirX = p.vx >= 0 ? 1 : -1;
+          }
+
+          // Check obstacle collision and steer away
+          const nextX = p.x + p.vx;
+          const nextY = p.y + p.vy;
+          if (isInsideObstacle(nextX, nextY, pw, ph)) {
+            pickNewTarget(p);
+            p.vx = 0;
+            p.vy = 0;
+          } else {
+            p.x = nextX;
+            p.y = nextY;
+          }
+
+          // Clamp to canvas
+          p.x = Math.max(0, Math.min(canvas.width - pw, p.x));
+          p.y = Math.max(0, Math.min(canvas.height - ph, p.y));
+
+          // Animate walking frames
           p.frameTimer++;
-          if (p.frameTimer > 12) {
+          if (p.frameTimer > 10) {
             p.frameTimer = 0;
             p.frame = (p.frame + 1) % 2;
           }
 
-          // Random direction change
-          if (Math.random() < 0.005) {
-            p.direction *= -1;
-          }
-
-          // Random stop
-          if (Math.random() < 0.008) {
-            p.state = 'idle';
-            p.idleTimer = 60 + Math.floor(Math.random() * 120);
-          }
-
-          // Random jump
-          if (Math.random() < 0.003) {
-            p.state = 'jump';
-            p.jumpVy = -3;
-          }
-
-          // Bounce off edges
-          if (p.x < 10) {
-            p.x = 10;
-            p.direction = 1;
-          }
-          if (p.x > canvas.width - 8 * p.size - 10) {
-            p.x = canvas.width - 8 * p.size - 10;
-            p.direction = -1;
-          }
-
-          // Draw walking frame
-          drawSprite(ctx, FRAMES[p.frame], p.x, p.y, p.size, p.direction === -1);
+          drawSprite(ctx, FRAMES[p.frame], p.x, p.y, p.size, p.dirX === -1);
 
         } else if (p.state === 'idle') {
           p.idleTimer--;
           if (p.idleTimer <= 0) {
             p.state = 'walk';
-            // Maybe change direction
-            if (Math.random() > 0.5) p.direction *= -1;
+            pickNewTarget(p);
           }
-          drawSprite(ctx, PENGUIN_IDLE, p.x, p.y, p.size, p.direction === -1);
-
-        } else if (p.state === 'jump') {
-          p.y += p.jumpVy;
-          p.jumpVy += 0.15; // gravity
-          p.x += p.vx * p.direction * 0.5;
-
-          if (p.y >= p.groundY) {
-            p.y = p.groundY;
-            p.state = 'walk';
-          }
-
-          drawSprite(ctx, PENGUIN_IDLE, p.x, p.y, p.size, p.direction === -1);
+          drawSprite(ctx, IDLE, p.x, p.y, p.size, p.dirX === -1);
         }
 
-        // Shadow
-        ctx.fillStyle = 'rgba(0, 255, 65, 0.08)';
+        // Small shadow
+        ctx.fillStyle = 'rgba(0, 255, 65, 0.06)';
         ctx.beginPath();
-        ctx.ellipse(p.x + 4 * p.size, p.groundY + 8 * p.size + 2, 5 * p.size, 2, 0, 0, Math.PI * 2);
+        ctx.ellipse(
+          p.x + pw / 2,
+          p.y + ph + 1,
+          pw / 2.5,
+          3,
+          0, 0, Math.PI * 2
+        );
         ctx.fill();
       }
 
       animRef.current = requestAnimationFrame(animate);
+    }
+
+    // Initial target assignment
+    for (const p of penguins) {
+      pickNewTarget(p);
     }
 
     animRef.current = requestAnimationFrame(animate);
