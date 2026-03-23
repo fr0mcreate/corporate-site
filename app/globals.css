@@ -3176,8 +3176,9 @@ body {
    ============================================ */
 
 .opening {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -3186,6 +3187,12 @@ body {
   overflow: hidden;
   background: #050510;
   z-index: 0;
+}
+
+/* Spacer to push content below the fixed opening */
+.opening-spacer {
+  height: 100vh;
+  position: relative;
 }
 
 /* Scanlines on opening */

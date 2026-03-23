@@ -28,6 +28,7 @@ export default function HomePage() {
           <div className="opening-scroll-line" />
         </div>
       </section>
+      <div className="opening-spacer" />
 
       {/* ===== HERO: 従来のメインヒーロー ===== */}
       <section className="hero">
