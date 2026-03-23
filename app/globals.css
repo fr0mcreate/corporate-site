@@ -371,15 +371,7 @@ button {
    ---------------------------------------- */
 .hero {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 6rem 1rem;
-  overflow: clip;
   background: var(--bg);
-  z-index: 1;
 }
 
 /* Star field */
@@ -554,7 +546,6 @@ button {
 .section {
   padding: var(--section-padding) 0;
   position: relative;
-  z-index: 2;
   background: var(--bg);
 }
 
@@ -1648,7 +1639,7 @@ button {
   }
 
   /* Hero */
-  .hero {
+  .hero > .section-content {
     padding-top: 100px;
   }
 
@@ -2400,7 +2391,7 @@ button {
 /* ----------------------------------------
    Hero Enhancements
    ---------------------------------------- */
-.hero {
+.hero > .section-content {
   padding-top: calc(28px + 72px + 2rem);
 }
 
@@ -2545,7 +2536,7 @@ body {
     padding-bottom: 22px;
   }
   
-  .hero {
+  .hero > .section-content {
     padding-top: calc(22px + 72px + 1rem);
   }
   
@@ -3354,7 +3345,7 @@ body {
 }
 
 /* Adjust hero section — no longer needs to account for full opening height */
-.hero {
+.hero > .section-content {
   padding-top: calc(28px + 72px + 2rem);
 }
 
@@ -3381,13 +3372,54 @@ main#main {
   z-index: 2;
 }
 
-/* Section overlay classes (managed by GSAP ScrollTrigger pin) */
+/* ============================================
+   Stacking sections: sticky background layer
+   ============================================ */
 .section-sticky {
-  /* sticky + z-index set by JS for stacking overlap */
+  position: relative;
+  /* z-index set by JS for stacking order */
 }
 
-/* Ensure pin-spacer wrappers created by GSAP inherit z-index from pinned element */
-.pin-spacer {
-  z-index: inherit !important;
-  overflow: visible !important;
+/* Sticky background — stays pinned at top while content scrolls over it */
+.section-sticky > .section-bg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg);
+  /* Pull content up to overlap the sticky bg */
+  margin-bottom: -100vh;
+}
+
+.section-sticky > .section-bg.section-bg--elevated {
+  background: var(--bg-elevated);
+}
+
+/* Content layer — flows normally over the stuck background */
+.section-sticky > .section-content {
+  position: relative;
+}
+
+/* Hero uses same pattern */
+.hero {
+  overflow: visible;
+}
+
+.hero > .section-bg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg);
+  margin-bottom: -100vh;
+}
+
+.hero > .section-content {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 1rem;
 }

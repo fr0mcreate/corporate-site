@@ -38,21 +38,16 @@ export default function ScrollAnimations() {
       { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.8 }
     );
 
-    // ===== STACKING SECTIONS via CSS sticky =====
-    // Apply sticky positioning and ascending z-index via JS
+    // ===== Z-INDEX STACKING =====
+    // Ascending z-index so each section's bg covers the previous
     let zIndex = 1;
 
     const heroEl = document.querySelector<HTMLElement>('.hero');
     if (heroEl) {
-      heroEl.style.position = 'sticky';
-      heroEl.style.top = '0';
       heroEl.style.zIndex = String(zIndex++);
     }
 
-    const stickySections = gsap.utils.toArray<HTMLElement>('.section-sticky');
-    stickySections.forEach((section) => {
-      section.style.position = 'sticky';
-      section.style.top = '0';
+    document.querySelectorAll<HTMLElement>('.section-sticky').forEach((section) => {
       section.style.zIndex = String(zIndex++);
     });
 
