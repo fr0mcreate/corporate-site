@@ -29,7 +29,7 @@ export default function HeroCanvas() {
     const colors = ['#00ff41', '#00e5ff', '#ff0090'];
     const PARTICLE_COUNT = 480;
     const CONNECTION_DIST = 80;
-    const MOUSE_RADIUS = 200;
+    const MOUSE_RADIUS = 300;
 
     function resize() {
       if (!canvas) return;
@@ -79,15 +79,16 @@ export default function HeroCanvas() {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_RADIUS) {
+        if (dist < MOUSE_RADIUS && dist > 0) {
           const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
-          p.vx += (dx / dist) * force * 0.3;
-          p.vy += (dy / dist) * force * 0.3;
+          const pushStrength = force * force * 1.5;
+          p.vx += (dx / dist) * pushStrength;
+          p.vy += (dy / dist) * pushStrength;
         }
 
         // Damping
-        p.vx *= 0.98;
-        p.vy *= 0.98;
+        p.vx *= 0.95;
+        p.vy *= 0.95;
 
         p.x += p.vx;
         p.y += p.vy;
