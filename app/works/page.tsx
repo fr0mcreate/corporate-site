@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { staticWorks } from '@/lib/static-data';
 import WorkCard from '@/components/WorkCard';
+import FixedBgVideo from '@/components/FixedBgVideo';
 
 const categories = [
     { value: 'all', label: 'すべて' },
@@ -28,14 +29,16 @@ export default function WorksPage() {
 
     return (
         <>
-            <div className="page-header">
+            <FixedBgVideo src="/works-page-bg-video.mp4" />
+
+            <div className="page-header" style={{ background: 'transparent' }}>
                 <div className="container">
                     <h1 className="fade-up is-visible">Works</h1>
                     <p className="fade-up is-visible">これまで手がけた映像制作の事例をご紹介します</p>
                 </div>
             </div>
 
-            <section className="section">
+            <section className="section" style={{ background: 'transparent' }}>
                 <div className="container">
                     <div className="filters fade-up is-visible">
                         {categories.map((cat) => (
@@ -57,7 +60,7 @@ export default function WorksPage() {
                 </div>
             </section>
 
-            <section className="cta-section">
+            <section className="cta-section" style={{ background: 'transparent' }}>
                 <div className="container fade-up is-visible">
                     <h2>同じような映像を作りたいですか？</h2>
                     <p>事例を参考にしながら、貴社に最適な企画をご提案します。<br />まずはお気軽にご相談ください。</p>
