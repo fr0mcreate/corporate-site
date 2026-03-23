@@ -377,7 +377,7 @@ button {
   justify-content: center;
   text-align: center;
   padding: 6rem 1rem;
-  overflow: hidden;
+  overflow: clip;
   background: var(--bg);
   z-index: 1;
 }
@@ -3384,5 +3384,11 @@ main#main {
 
 /* Section overlay classes (managed by GSAP ScrollTrigger pin) */
 .section-sticky {
-  /* pinned by JS, no CSS sticky needed */
+  /* pinned by JS — z-index set by JS for stacking order */
+  will-change: transform;
+}
+
+/* Ensure pin-spacer wrappers created by GSAP inherit z-index from pinned element */
+.pin-spacer {
+  z-index: inherit !important;
 }

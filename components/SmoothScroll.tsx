@@ -19,8 +19,10 @@ export default function SmoothScroll() {
     });
     lenisRef.current = lenis;
 
+    // Sync Lenis scroll position with ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
+    // Drive Lenis from GSAP ticker for frame-perfect sync
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });

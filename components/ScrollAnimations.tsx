@@ -8,9 +8,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollAnimations() {
   useEffect(() => {
-    // Wait for loading screen
+    // Wait for loading screen to finish
     const timer = setTimeout(() => {
-      initAnimations();
+      requestAnimationFrame(() => {
+        initAnimations();
+      });
     }, 2800);
 
     return () => {
@@ -21,7 +23,7 @@ export default function ScrollAnimations() {
 
   function initAnimations() {
     // Hero title reveal
-    gsap.fromTo('.hero h1', 
+    gsap.fromTo('.hero h1',
       { opacity: 0, y: 40, scale: 0.95 },
       { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.2 }
     );
@@ -36,9 +38,29 @@ export default function ScrollAnimations() {
       { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.8 }
     );
 
-    // ===== SECTION PIN (scroll-overlap effect) =====
-    // Pin each .section-sticky so next section scrolls over it
-    gsap.utils.toArray<HTMLElement>('.section-sticky').forEach((section) => {
+    // ===== SECTION PIN (scroll-overlap / stacking panels effect) =====
+    // Each pinned section stays fixed while the next section scrolls up over it.
+    // z-index must increase for each subsequent section so it covers the previous one.
+
+    let zIndex = 1;
+
+    // Pin the Hero section
+    const heroEl = document.querySelector<HTMLElement>('.hero');
+    if (heroEl) {
+      heroEl.style.zIndex = String(zIndex++);
+      ScrollTrigger.create({
+        trigger: heroEl,
+        start: 'top top',
+        end: 'bottom top',
+        pin: true,
+        pinSpacing: false,
+      });
+    }
+
+    // Pin each .section-sticky so the next section scrolls over it
+    const stickySections = gsap.utils.toArray<HTMLElement>('.section-sticky');
+    stickySections.forEach((section) => {
+      section.style.zIndex = String(zIndex++);
       ScrollTrigger.create({
         trigger: section,
         start: 'top top',
@@ -48,17 +70,8 @@ export default function ScrollAnimations() {
       });
     });
 
-    // Also pin the Hero section
-    const heroEl = document.querySelector('.hero');
-    if (heroEl) {
-      ScrollTrigger.create({
-        trigger: heroEl,
-        start: 'top top',
-        end: 'bottom top',
-        pin: true,
-        pinSpacing: false,
-      });
-    }
+    // Force ScrollTrigger to recalculate after all pins are created
+    ScrollTrigger.refresh();
 
     // Section reveals
     gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {
