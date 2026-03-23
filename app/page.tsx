@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { staticWorks, staticBlogPosts } from '@/lib/static-data';
 import WorkCard from '@/components/WorkCard';
 import HeroCanvas from '@/components/HeroCanvas';
+import HeroVideo from '@/components/HeroVideo';
 import BreakoutGame from '@/components/BreakoutGame';
 
 export default function HomePage() {
@@ -12,6 +13,7 @@ export default function HomePage() {
     <>
       {/* ===== HERO ===== */}
       <section className="hero">
+        <HeroVideo />
         <HeroCanvas />
         <div className="hero-grid-bg" aria-hidden="true" />
         <div className="hero-scanlines" aria-hidden="true" />

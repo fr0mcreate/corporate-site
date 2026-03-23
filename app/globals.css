@@ -3098,3 +3098,69 @@ body {
     font-size: 0.6rem;
   }
 }
+
+/* ============================================
+   HERO VIDEO BACKGROUND
+   ============================================ */
+
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.hero-video-wrap.hero-video-loaded {
+  opacity: 1;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Dark overlay + scanline + color tint for retro feel */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(5, 5, 16, 0.55) 0%,
+      rgba(5, 5, 16, 0.35) 40%,
+      rgba(5, 5, 16, 0.55) 100%
+    );
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+
+/* Subtle green tint border glow on video */
+.hero-video-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 80px rgba(0, 255, 65, 0.06);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* When video is present, reduce canvas opacity */
+.hero-video-loaded ~ .hero-canvas {
+  opacity: 0.3;
+}
