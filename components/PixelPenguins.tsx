@@ -63,11 +63,11 @@ const IDLE = [
 const FRAMES = [WALK1, WALK2];
 
 const COLORS: Record<number, string> = {
-  1: '#222244',
-  2: '#f0f0f0',
-  3: '#ff8c00',
-  4: '#00ffcc',
-  5: '#888caa',
+  1: '#000000',
+  2: '#ffffff',
+  3: '#ff6600',
+  4: '#00ff41',
+  5: '#ccddff',
 };
 
 export default function PixelPenguins() {
