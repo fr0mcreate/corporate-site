@@ -68,28 +68,28 @@ export default function ScrollAnimations() {
 
       if (overflow > 0 && inner) {
         // Section taller than viewport: pin and scroll content inside
-        const st = ScrollTrigger.create({
-          trigger: section,
-          start: 'top top',
-          end: `+=${overflow}`,
-          pin: true,
-          pinSpacing: false, // NO auto spacing — we add manual spacer
-          scrub: true,
-          anticipatePin: 1,
-          animation: gsap.to(inner, { y: -overflow, ease: 'none' }),
+        gsap.to(inner, {
+          y: -overflow,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: `+=${overflow}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: true,
+            anticipatePin: 1,
+            onRefresh: () => {
+              // Override pin-spacer height to only the overflow amount
+              const pinSpacer = section.parentElement;
+              if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                pinSpacer.style.height = `${overflow}px`;
+                pinSpacer.style.minHeight = `${overflow}px`;
+                pinSpacer.style.maxHeight = `${overflow}px`;
+              }
+            },
+          },
         });
-        // Insert a manual spacer div after the pin-spacer with exact overflow height
-        const spacer = document.createElement('div');
-        spacer.style.height = `${overflow}px`;
-        spacer.style.position = 'relative';
-        spacer.style.zIndex = section.style.zIndex;
-        spacer.style.pointerEvents = 'none';
-        const pinSpacer = section.parentElement;
-        if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-          pinSpacer.after(spacer);
-        } else {
-          section.after(spacer);
-        }
       } else {
         // Section fits in viewport: minimal pin, next section overlaps right away
         ScrollTrigger.create({
@@ -105,6 +105,20 @@ export default function ScrollAnimations() {
 
     // Recalculate after all pins are created
     ScrollTrigger.refresh();
+
+    // Force pin-spacer height override after refresh
+    stickySections.forEach((section) => {
+      const contentHeight = section.scrollHeight;
+      const sectionOverflow = Math.max(0, contentHeight - vh);
+      if (sectionOverflow > 0) {
+        const pinSpacer = section.parentElement;
+        if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+          pinSpacer.style.height = `${sectionOverflow}px`;
+          pinSpacer.style.minHeight = `${sectionOverflow}px`;
+          pinSpacer.style.maxHeight = `${sectionOverflow}px`;
+        }
+      }
+    });
 
     // Section reveals
     gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {
