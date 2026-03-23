@@ -84,11 +84,11 @@ const SPRITE_W = 12;
 const SPRITE_H = 16;
 
 const COLORS: Record<number, string> = {
-  1: '#111118',     // outline - very dark
-  2: '#e8eef5',     // white belly
+  1: '#2a2a3a',     // outline
+  2: '#ffffff',     // white belly
   3: '#ff8800',     // orange beak/feet
   4: '#00ff41',     // bright green eyes (retro theme)
-  5: '#1a1a2e',     // dark body
+  5: '#4a4a6a',     // body - visible against dark bg
 };
 
 export default function PixelPenguins() {
