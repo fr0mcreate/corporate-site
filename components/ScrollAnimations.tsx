@@ -106,19 +106,27 @@ export default function ScrollAnimations() {
     // Recalculate after all pins are created
     ScrollTrigger.refresh();
 
-    // Force pin-spacer height override after refresh
-    stickySections.forEach((section) => {
-      const contentHeight = section.scrollHeight;
-      const sectionOverflow = Math.max(0, contentHeight - vh);
-      if (sectionOverflow > 0) {
-        const pinSpacer = section.parentElement;
-        if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-          pinSpacer.style.height = `${sectionOverflow}px`;
-          pinSpacer.style.minHeight = `${sectionOverflow}px`;
-          pinSpacer.style.maxHeight = `${sectionOverflow}px`;
+    // Force pin-spacer height override — run after GSAP finishes its layout
+    function overridePinSpacers() {
+      stickySections.forEach((section) => {
+        const contentHeight = section.scrollHeight;
+        const sectionOverflow = Math.max(0, contentHeight - vh);
+        if (sectionOverflow > 0) {
+          const pinSpacer = section.parentElement;
+          if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+            pinSpacer.style.setProperty('height', `${sectionOverflow}px`, 'important');
+            pinSpacer.style.setProperty('min-height', `${sectionOverflow}px`, 'important');
+            pinSpacer.style.setProperty('max-height', `${sectionOverflow}px`, 'important');
+            pinSpacer.style.setProperty('padding', '0', 'important');
+          }
         }
-      }
-    });
+      });
+    }
+    // Run multiple times to beat GSAP's re-calculations
+    overridePinSpacers();
+    requestAnimationFrame(overridePinSpacers);
+    setTimeout(overridePinSpacers, 100);
+    setTimeout(overridePinSpacers, 500);
 
     // Section reveals
     gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {
