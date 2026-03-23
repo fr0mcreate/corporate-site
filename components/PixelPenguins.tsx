@@ -116,12 +116,20 @@ export default function PixelPenguins() {
     const PENGUIN_SIZE = 4;
     const count = 8;
     const penguins: Penguin[] = [];
+    const pw = 8 * PENGUIN_SIZE;
+    const ph = 10 * PENGUIN_SIZE;
     for (let i = 0; i < count; i++) {
-      const pw = 8 * PENGUIN_SIZE;
-      const ph = 10 * PENGUIN_SIZE;
+      // Start penguins at edges (top/bottom/left/right) to avoid cards in center
+      const edge = i % 4;
+      let startX = 0;
+      let startY = 0;
+      if (edge === 0) { startX = 10 + Math.random() * 60; startY = 10 + Math.random() * 40; }
+      else if (edge === 1) { startX = canvas.width - pw - 10 - Math.random() * 60; startY = 10 + Math.random() * 40; }
+      else if (edge === 2) { startX = 10 + Math.random() * 60; startY = canvas.height - ph - 10 - Math.random() * 40; }
+      else { startX = canvas.width - pw - 10 - Math.random() * 60; startY = canvas.height - ph - 10 - Math.random() * 40; }
       penguins.push({
-        x: Math.random() * (canvas.width - pw),
-        y: Math.random() * (canvas.height - ph),
+        x: startX,
+        y: startY,
         vx: 0,
         vy: 0,
         frame: 0,
@@ -229,12 +237,27 @@ export default function PixelPenguins() {
           const nextX = p.x + p.vx;
           const nextY = p.y + p.vy;
           if (isInsideObstacle(nextX, nextY, pw, ph)) {
+            // Push away from obstacle and pick new target
             pickNewTarget(p);
+            // Move in opposite direction briefly
+            p.x -= p.vx * 3;
+            p.y -= p.vy * 3;
             p.vx = 0;
             p.vy = 0;
           } else {
             p.x = nextX;
             p.y = nextY;
+          }
+
+          // If currently inside obstacle (started there), escape
+          if (isInsideObstacle(p.x, p.y, pw, ph)) {
+            pickNewTarget(p);
+            // Move toward target aggressively
+            const eDx = p.targetX - p.x;
+            const eDy = p.targetY - p.y;
+            const eDist = Math.sqrt(eDx * eDx + eDy * eDy) || 1;
+            p.x += (eDx / eDist) * 5;
+            p.y += (eDy / eDist) * 5;
           }
 
           // Clamp to canvas
