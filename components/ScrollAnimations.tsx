@@ -68,21 +68,28 @@ export default function ScrollAnimations() {
 
       if (overflow > 0 && inner) {
         // Section taller than viewport: pin and scroll content inside
-        // Use tight overflow calculation
-        const scrollDist = overflow + 1; // just enough to show all content
-        gsap.to(inner, {
-          y: -overflow,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: `+=${scrollDist}`,
-            pin: true,
-            pinSpacing: true,
-            scrub: true,
-            anticipatePin: 1,
-          },
+        const st = ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          end: `+=${overflow}`,
+          pin: true,
+          pinSpacing: false, // NO auto spacing — we add manual spacer
+          scrub: true,
+          anticipatePin: 1,
+          animation: gsap.to(inner, { y: -overflow, ease: 'none' }),
         });
+        // Insert a manual spacer div after the pin-spacer with exact overflow height
+        const spacer = document.createElement('div');
+        spacer.style.height = `${overflow}px`;
+        spacer.style.position = 'relative';
+        spacer.style.zIndex = section.style.zIndex;
+        spacer.style.pointerEvents = 'none';
+        const pinSpacer = section.parentElement;
+        if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+          pinSpacer.after(spacer);
+        } else {
+          section.after(spacer);
+        }
       } else {
         // Section fits in viewport: minimal pin, next section overlaps right away
         ScrollTrigger.create({
