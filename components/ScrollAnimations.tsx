@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollAnimations() {
   useEffect(() => {
-    // Wait for loading screen to finish
     const timer = setTimeout(() => {
       requestAnimationFrame(() => {
         initAnimations();
@@ -22,36 +21,51 @@ export default function ScrollAnimations() {
   }, []);
 
   function initAnimations() {
+    const vh = window.innerHeight;
+
     // Hero title reveal
     gsap.fromTo('.hero h1',
       { opacity: 0, y: 40, scale: 0.95 },
       { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.2 }
     );
-
     gsap.fromTo('.hero-kicker',
       { opacity: 0, x: -30 },
       { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out', delay: 0.5 }
     );
-
     gsap.fromTo('.hero-cta',
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.8 }
     );
 
-    // ===== Z-INDEX STACKING =====
-    // Ascending z-index so each section's bg covers the previous
-    let zIndex = 1;
-
-    const heroEl = document.querySelector<HTMLElement>('.hero');
-    if (heroEl) {
-      heroEl.style.zIndex = String(zIndex++);
-    }
-
-    document.querySelectorAll<HTMLElement>('.section-sticky').forEach((section) => {
-      section.style.zIndex = String(zIndex++);
+    // ===== STICKY OVERLAP (rudel.jp method) =====
+    // Set position:sticky and negative top on each section-sticky
+    // Negative top = section height - viewport height (so all content is visible before it sticks)
+    const stickySections = document.querySelectorAll<HTMLElement>('.section-sticky');
+    stickySections.forEach((section) => {
+      const sectionHeight = section.offsetHeight;
+      const overflow = sectionHeight - vh;
+      
+      if (overflow > 0) {
+        // Section taller than viewport: negative top so content scrolls fully before sticking
+        section.style.position = 'sticky';
+        section.style.top = `-${overflow}px`;
+      } else {
+        // Section fits in viewport: stick at top
+        section.style.position = 'sticky';
+        section.style.top = '0px';
+      }
     });
 
-    // Section reveals
+    // Hero also gets sticky
+    const heroEl = document.querySelector<HTMLElement>('.hero');
+    if (heroEl) {
+      const heroHeight = heroEl.offsetHeight;
+      const heroOverflow = heroHeight - vh;
+      heroEl.style.position = 'sticky';
+      heroEl.style.top = heroOverflow > 0 ? `-${heroOverflow}px` : '0px';
+    }
+
+    // Section entrance reveals
     gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {
       const header = section.querySelector('.section-header');
       const cards = section.querySelectorAll('.card, .service-card, .work-card, .strength-item, .faq-item');
@@ -88,7 +102,7 @@ export default function ScrollAnimations() {
       });
     });
 
-    // Strength items typewriter-style
+    // Strength items
     gsap.utils.toArray<HTMLElement>('.strength-item').forEach((item, i) => {
       gsap.fromTo(item,
         { opacity: 0, x: -40 },
@@ -143,7 +157,7 @@ export default function ScrollAnimations() {
       );
     });
 
-    // Progress bar on right
+    // Progress bar
     gsap.to('.scroll-progress-bar', {
       scaleY: 1,
       ease: 'none',

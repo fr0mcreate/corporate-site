@@ -546,7 +546,7 @@ button {
 .section {
   padding: var(--section-padding) 0;
   position: relative;
-  background: transparent;
+  background: var(--bg);
 }
 
 .section-header {
@@ -873,7 +873,7 @@ button {
    ---------------------------------------- */
 .cta-section {
   padding: var(--section-padding) 0;
-  background: transparent;
+  background: var(--bg-elevated);
   border-top: 3px solid var(--border-dim);
   border-bottom: 3px solid var(--border-dim);
   text-align: center;
@@ -3368,17 +3368,23 @@ body {
 /* Main content above opening */
 main#main {
   position: relative;
-  z-index: 2;
-  /* background transparent so overlay behind is visible */
+  overflow-x: clip; /* Critical for sticky to work (rudel.jp method) */
 }
 
 /* ============================================
    Stacking sections: sticky background layer
    ============================================ */
 .section-sticky {
-  position: relative;
-  /* background handled by SectionOverlay */
-  background: transparent;
+  /* position: sticky + top set by JS */
+  background: var(--bg);
+}
+
+.section-works.section-sticky {
+  background: var(--bg-elevated);
+}
+
+.section-blog.section-sticky {
+  background: var(--bg-elevated);
 }
 
 /* Sticky background — stays pinned at top while content scrolls over it */
