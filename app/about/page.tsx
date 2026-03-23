@@ -1,19 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import FixedBgVideo from '@/components/FixedBgVideo';
 
 export const metadata: Metadata = { title: 'About | FROM CREATE' };
 
 export default function AboutPage() {
     return (
         <>
-            <div className="page-header">
+            <FixedBgVideo src="/about-page-bg-video.mp4" />
+
+            <div className="page-header" style={{ background: 'transparent' }}>
                 <div className="container">
                     <h1 className="fade-up is-visible">About</h1>
                     <p className="fade-up is-visible">私たちについて</p>
                 </div>
             </div>
 
-            <section className="section">
+            <section className="section" style={{ background: 'transparent' }}>
                 <div className="container">
                     <header className="section-header fade-up is-visible">
                         <h2>Mission</h2>
@@ -33,7 +36,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <section className="section" style={{ background: 'var(--bg-elevated)' }}>
+            <section className="section" style={{ background: 'transparent' }}>
                 <div className="container">
                     <header className="section-header fade-up is-visible">
                         <h2>Strength</h2>
@@ -56,7 +59,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <section className="section">
+            <section className="section" style={{ background: 'transparent' }}>
                 <div className="container">
                     <div className="company-info fade-up is-visible">
                         <h2>Company</h2>
@@ -72,7 +75,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <section className="cta-section">
+            <section className="cta-section" style={{ background: 'transparent' }}>
                 <div className="container fade-up is-visible">
                     <h2>FR0M CREATEに興味を持っていただけましたか？</h2>
                     <p>制作のご相談、お見積もりのご依頼など、<br />お気軽にお問い合わせください。</p>
