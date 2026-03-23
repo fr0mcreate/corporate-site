@@ -3374,3 +3374,10 @@ body {
     bottom: 2rem;
   }
 }
+
+/* Main content above opening */
+main#main {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+}

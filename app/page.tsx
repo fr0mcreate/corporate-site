@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { staticWorks, staticBlogPosts } from '@/lib/static-data';
 import WorkCard from '@/components/WorkCard';
 import HeroCanvas from '@/components/HeroCanvas';
-import HeroVideo from '@/components/HeroVideo';
 import BreakoutGame from '@/components/BreakoutGame';
 
 export default function HomePage() {
@@ -11,26 +10,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ===== OPENING: 全画面映像ページ ===== */}
-      <section className="opening">
-        <HeroVideo />
-        <div className="opening-scanlines" aria-hidden="true" />
-        <div className="opening-content">
-          <div className="opening-logo">
-            <span className="opening-bracket">[</span>
-            FR0M CREATE
-            <span className="opening-bracket">]</span>
-          </div>
-          <p className="opening-tagline">理想を、現実に。</p>
-        </div>
-        <div className="opening-scroll-hint" aria-hidden="true">
-          <span>SCROLL</span>
-          <div className="opening-scroll-line" />
-        </div>
-      </section>
-      <div className="opening-spacer" />
-
-      {/* ===== HERO: 従来のメインヒーロー ===== */}
+      {/* ===== HERO ===== */}
       <section className="hero">
         <HeroCanvas />
         <div className="hero-grid-bg" aria-hidden="true" />
