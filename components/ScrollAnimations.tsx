@@ -1,24 +1,42 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollAnimations() {
+  const pathname = usePathname();
+  const initializedRef = useRef(false);
+
+  // First load: wait for loading screen
   useEffect(() => {
     const timer = setTimeout(() => {
       requestAnimationFrame(() => {
         initAnimations();
+        initializedRef.current = true;
       });
     }, 2800);
 
     return () => {
       clearTimeout(timer);
-      ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
+
+  // On route change: re-apply sticky + animations immediately
+  useEffect(() => {
+    if (!initializedRef.current) return; // skip first render (handled above)
+    ScrollTrigger.getAll().forEach(t => t.kill());
+    // Small delay for DOM to update after navigation
+    const timer = setTimeout(() => {
+      requestAnimationFrame(() => {
+        initAnimations();
+      });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   function initAnimations() {
     const vh = window.innerHeight;
