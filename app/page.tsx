@@ -4,6 +4,7 @@ import WorkCard from '@/components/WorkCard';
 import HeroCanvas from '@/components/HeroCanvas';
 import HeroVideo from '@/components/HeroVideo';
 import BreakoutGame from '@/components/BreakoutGame';
+import PixelPenguins from '@/components/PixelPenguins';
 
 export default function HomePage() {
   const works = staticWorks.slice(0, 6);
@@ -84,8 +85,9 @@ export default function HomePage() {
       </section>
 
       {/* ===== SERVICE ===== */}
-      <section className="section section-service section-sticky">
-        <div className="container">
+      <section className="section section-service section-sticky" style={{ position: 'relative' }}>
+        <PixelPenguins />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <header className="section-header">
             <p className="section-kicker">STAGE 2 / SERVICE</p>
             <h2 className="glitch-text" data-text="Service">Service</h2>
