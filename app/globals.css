@@ -3446,3 +3446,12 @@ main#main {
   text-align: center;
   padding: 6rem 1rem;
 }
+
+/* Section top fade-in (semi-transparent upper edge via inset shadow) */
+.section-sticky {
+  box-shadow: inset 0 80px 60px -40px rgba(0, 0, 0, 0.7);
+}
+
+.hero {
+  box-shadow: inset 0 80px 60px -40px rgba(0, 0, 0, 0.7);
+}
