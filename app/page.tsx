@@ -208,9 +208,10 @@ export default function HomePage() {
       )}
 
       {/* ===== CTA ===== */}
-      <section className="cta-section section-sticky">
+      <section className="cta-section section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+        <SectionVideo src="/cta-bg-video.mp4" />
         <div className="cta-bg-effect" aria-hidden="true" />
-        <div className="container">
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className="section-kicker">FINAL STAGE / CONTACT</p>
           <h2 className="glitch-text" data-text="まずはお気軽にご相談ください">まずはお気軽にご相談ください</h2>
           <p>映像で解決したい課題や、制作のイメージをお聞かせください。<br />ヒアリングを通じて最適なプランをご提案します。</p>
