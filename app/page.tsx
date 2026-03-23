@@ -5,6 +5,7 @@ import HeroCanvas from '@/components/HeroCanvas';
 import HeroVideo from '@/components/HeroVideo';
 import BreakoutGame from '@/components/BreakoutGame';
 import PixelPenguins from '@/components/PixelPenguins';
+import SectionVideo from '@/components/SectionVideo';
 
 export default function HomePage() {
   const works = staticWorks.slice(0, 6);
@@ -123,8 +124,9 @@ export default function HomePage() {
       </section>
 
       {/* ===== WORKS ===== */}
-      <section id="works" className="section section-works section-sticky">
-        <div className="container">
+      <section id="works" className="section section-works section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+        <SectionVideo src="/works-bg-video.mp4" />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <header className="section-header">
             <p className="section-kicker">STAGE 3 / WORKS</p>
             <h2 className="glitch-text" data-text="Works">Works</h2>
