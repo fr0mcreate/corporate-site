@@ -1,19 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import FixedBgVideo from '@/components/FixedBgVideo';
 
 export const metadata: Metadata = { title: 'Flow & Price | FROM CREATE' };
 
 export default function FlowPricePage() {
     return (
         <>
-            <div className="page-header">
+            <FixedBgVideo src="/flow-price-page-bg-video.mp4" />
+
+            <div className="page-header" style={{ background: 'transparent' }}>
                 <div className="container">
                     <h1 className="fade-up is-visible">Flow &amp; Price</h1>
                     <p className="fade-up is-visible">制作の流れと料金の考え方</p>
                 </div>
             </div>
 
-            <section className="section">
+            <section className="section" style={{ background: 'transparent' }}>
                 <div className="container">
                     <header className="section-header fade-up is-visible">
                         <h2>制作フロー</h2>
@@ -39,7 +42,7 @@ export default function FlowPricePage() {
                 </div>
             </section>
 
-            <section className="section" style={{ background: 'var(--bg-elevated)' }}>
+            <section className="section" style={{ background: 'transparent' }}>
                 <div className="container">
                     <header className="section-header fade-up is-visible">
                         <h2>料金の考え方</h2>
@@ -114,7 +117,7 @@ export default function FlowPricePage() {
                 </div>
             </section>
 
-            <section className="cta-section">
+            <section className="cta-section" style={{ background: 'transparent' }}>
                 <div className="container fade-up is-visible">
                     <h2>まずはお気軽にご相談ください</h2>
                     <p>予算感や納期のご相談もお気軽にどうぞ。<br />課題に合わせて最適なプランをご提案します。</p>
