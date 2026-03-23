@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import FixedBgVideo from '@/components/FixedBgVideo';
 
 export const metadata: Metadata = {
     title: 'Service | FROM CREATE',
@@ -9,14 +10,16 @@ export const metadata: Metadata = {
 export default function ServicePage() {
     return (
         <>
-            <div className="page-header">
+            <FixedBgVideo src="/service-bg-video.mp4" />
+
+            <div className="page-header" style={{ background: 'transparent' }}>
                 <div className="container">
                     <h1 className="fade-up is-visible">Service</h1>
                     <p className="fade-up is-visible">映像・SNS・コミュニティを通じた4つのサービス</p>
                 </div>
             </div>
 
-            <section className="section">
+            <section className="section" style={{ background: 'transparent' }}>
                 <div className="container">
                     <div className="service-categories">
                         <Link href="/service/video" className="category-card fade-up is-visible">
@@ -47,7 +50,7 @@ export default function ServicePage() {
                 </div>
             </section>
 
-            <section className="cta-section">
+            <section className="cta-section" style={{ background: 'transparent' }}>
                 <div className="container fade-up is-visible">
                     <h2>どのサービスが最適かお悩みですか？</h2>
                     <p>課題や目的をお聞かせいただければ、最適なプランをご提案します。<br />まずはお気軽にご相談ください。</p>

@@ -3525,3 +3525,47 @@ main#main {
     );
   pointer-events: none;
 }
+
+/* Fixed background video (stays behind scrolling content) */
+.fixed-bg-video-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.fixed-bg-video-wrap.fixed-bg-video-loaded {
+  opacity: 1;
+}
+
+.fixed-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}
+
+.fixed-bg-video-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 4px
+    ),
+    rgba(5, 5, 16, 0.75);
+  pointer-events: none;
+}
