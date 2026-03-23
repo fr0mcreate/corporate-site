@@ -3385,10 +3385,12 @@ main#main {
 /* Section overlay classes (managed by GSAP ScrollTrigger pin) */
 .section-sticky {
   /* pinned by JS — z-index set by JS for stacking order */
+  overflow: hidden;
   will-change: transform;
 }
 
 /* Ensure pin-spacer wrappers created by GSAP inherit z-index from pinned element */
 .pin-spacer {
   z-index: inherit !important;
+  overflow: visible !important;
 }

@@ -22,6 +22,8 @@ export default function ScrollAnimations() {
   }, []);
 
   function initAnimations() {
+    const vh = window.innerHeight;
+
     // Hero title reveal
     gsap.fromTo('.hero h1',
       { opacity: 0, y: 40, scale: 0.95 },
@@ -38,39 +40,62 @@ export default function ScrollAnimations() {
       { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.8 }
     );
 
-    // ===== SECTION PIN (scroll-overlap / stacking panels effect) =====
-    // Each pinned section stays fixed while the next section scrolls up over it.
-    // z-index must increase for each subsequent section so it covers the previous one.
-
+    // ===== SECTION PIN (stacking panels with internal scroll) =====
     let zIndex = 1;
 
-    // Pin the Hero section
+    // Pin the Hero section (fits in viewport — simple pin)
     const heroEl = document.querySelector<HTMLElement>('.hero');
     if (heroEl) {
       heroEl.style.zIndex = String(zIndex++);
       ScrollTrigger.create({
         trigger: heroEl,
         start: 'top top',
-        end: 'bottom top',
+        end: `+=${vh}`,
         pin: true,
         pinSpacing: false,
+        anticipatePin: 1,
       });
     }
 
-    // Pin each .section-sticky so the next section scrolls over it
+    // Pin each .section-sticky
+    // If content exceeds viewport, scrub the inner .container upward
     const stickySections = gsap.utils.toArray<HTMLElement>('.section-sticky');
     stickySections.forEach((section) => {
       section.style.zIndex = String(zIndex++);
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        pin: true,
-        pinSpacing: false,
-      });
+
+      const contentHeight = section.scrollHeight;
+      const overflow = Math.max(0, contentHeight - vh);
+      const inner = section.querySelector<HTMLElement>('.container');
+
+      if (overflow > 0 && inner) {
+        // Section taller than viewport: pin it and scroll content inside
+        gsap.to(inner, {
+          y: -overflow,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: `+=${overflow}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: true,
+            anticipatePin: 1,
+          },
+        });
+      } else {
+        // Section fits in viewport: simple pin with overlap
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          end: `+=${vh}`,
+          pin: true,
+          pinSpacing: false,
+          anticipatePin: 1,
+        });
+      }
     });
 
-    // Force ScrollTrigger to recalculate after all pins are created
+    // Recalculate after all pins are created
     ScrollTrigger.refresh();
 
     // Section reveals
