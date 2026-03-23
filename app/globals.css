@@ -3387,6 +3387,7 @@ main#main {
   /* pinned by JS — z-index set by JS for stacking order */
   overflow: hidden;
   will-change: transform;
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 /* Ensure pin-spacer wrappers created by GSAP inherit z-index from pinned element */

@@ -68,14 +68,15 @@ export default function ScrollAnimations() {
 
       if (overflow > 0 && inner) {
         // Section taller than viewport: pin and scroll content inside
-        // pinSpacing only adds the overflow amount (not a full extra screen)
+        // Use tight overflow calculation
+        const scrollDist = overflow + 1; // just enough to show all content
         gsap.to(inner, {
           y: -overflow,
           ease: 'none',
           scrollTrigger: {
             trigger: section,
             start: 'top top',
-            end: `+=${overflow}`,
+            end: `+=${scrollDist}`,
             pin: true,
             pinSpacing: true,
             scrub: true,
