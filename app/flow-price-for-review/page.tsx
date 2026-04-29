@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "料金表(審査用)",
+  title: "料金表",
   robots: {
     index: false,
     follow: false,
@@ -46,7 +46,7 @@ export default function FlowPriceForReviewPage() {
     >
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
         <h1 style={{ fontSize: "1.5rem", marginBottom: "1.5rem" }}>
-          料金表(審査用)
+          料金表
         </h1>
 
         <h2 style={{ fontSize: "1.2rem", marginBottom: "1rem" }}>
