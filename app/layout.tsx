@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import AnalyticsTracker from '@/components/AnalyticsTracker';
 import SmoothScroll from '@/components/SmoothScroll';
 import LoadingScreen from '@/components/LoadingScreen';
 import ScrollAnimations from '@/components/ScrollAnimations';
@@ -32,7 +31,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main">{children}</main>
         <Footer />
-        <AnalyticsTracker />
       </body>
     </html>
   );
