@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /legal-tokushoho-for-review/
+Disallow: /flow-price-for-review/
