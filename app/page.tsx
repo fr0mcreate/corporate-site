@@ -86,7 +86,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== SERVICE ===== */}
-      <section className="section section-service section-sticky" style={{ position: 'relative' }}>
+      <section className="section section-service" style={{ position: 'relative' }}>
         <PixelPenguins />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <header className="section-header">
@@ -124,7 +124,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== WORKS ===== */}
-      <section id="works" className="section section-works section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+      <section id="works" className="section section-works" style={{ position: 'relative', overflow: 'clip' }}>
         <SectionVideo src="/works-bg-video.mp4" />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <header className="section-header">
@@ -144,7 +144,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== STRENGTH ===== */}
-      <section className="section section-strength section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+      <section className="section section-strength" style={{ position: 'relative', overflow: 'clip' }}>
         <SectionVideo src="/strength-bg-video.mp4" />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <header className="section-header">
@@ -180,7 +180,7 @@ export default function HomePage() {
 
       {/* ===== BLOG ===== */}
       {latestPosts.length > 0 && (
-        <section className="section section-blog section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+        <section className="section section-blog" style={{ position: 'relative', overflow: 'clip' }}>
           <SectionVideo src="/blog-bg-video.mp4" />
           <div className="container" style={{ position: 'relative', zIndex: 1 }}>
             <header className="section-header">
@@ -208,7 +208,7 @@ export default function HomePage() {
       )}
 
       {/* ===== CTA ===== */}
-      <section className="cta-section section-sticky" style={{ position: 'relative', overflow: 'clip' }}>
+      <section className="cta-section" style={{ position: 'relative', overflow: 'clip' }}>
         <SectionVideo src="/cta-bg-video.mp4" />
         <div className="cta-bg-effect" aria-hidden="true" />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>

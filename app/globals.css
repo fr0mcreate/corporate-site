@@ -1644,11 +1644,6 @@ button {
     transform: rotate(-45deg) translateY(-5px);
   }
 
-  /* Hero */
-  .hero > .section-content {
-    padding-top: 100px;
-  }
-
   .hero-cta {
     flex-direction: column;
   }
@@ -2394,13 +2389,6 @@ button {
   border-radius: 2px;
 }
 
-/* ----------------------------------------
-   Hero Enhancements
-   ---------------------------------------- */
-.hero > .section-content {
-  padding-top: calc(28px + 72px + 2rem);
-}
-
 .hero-grid-bg {
   position: absolute;
   inset: 0;
@@ -2540,10 +2528,6 @@ body {
   body {
     padding-top: 22px;
     padding-bottom: 22px;
-  }
-  
-  .hero > .section-content {
-    padding-top: calc(22px + 72px + 1rem);
   }
   
   .scroll-progress {
@@ -3364,11 +3348,6 @@ body {
   opacity: 0.5;
 }
 
-/* Adjust hero section — no longer needs to account for full opening height */
-.hero > .section-content {
-  padding-top: calc(28px + 72px + 2rem);
-}
-
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .opening-logo {
@@ -3389,95 +3368,18 @@ body {
 /* Main content above opening */
 main#main {
   position: relative;
-  overflow-x: clip; /* Critical for sticky to work (rudel.jp method) */
 }
 
-/* ============================================
-   Stacking sections: sticky background layer
-   ============================================ */
-.section-sticky {
-  /* position: sticky + top set by JS */
-  background: var(--bg);
-}
-
-.section-service.section-sticky {
+.section-service {
   background: #0a1628;
 }
 
-.section-works.section-sticky {
+.section-works {
   background: var(--bg-elevated);
 }
 
-.section-blog.section-sticky {
+.section-blog {
   background: var(--bg-elevated);
-}
-
-/* Sticky background — stays pinned at top while content scrolls over it */
-.section-sticky > .section-bg {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  background: var(--bg);
-  /* Pull content up to overlap the sticky bg */
-  margin-bottom: -100vh;
-}
-
-.section-sticky > .section-bg.section-bg--elevated {
-  background: var(--bg-elevated);
-}
-
-/* Content layer — flows normally, must be above fixed overlay layers */
-.section-sticky > .section-content {
-  position: relative;
-  z-index: 10;
-}
-
-/* Hero uses same pattern */
-.hero {
-  overflow: visible;
-}
-
-.hero > .section-bg {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  background: var(--bg);
-  margin-bottom: -100vh;
-}
-
-.hero > .section-content {
-  position: relative;
-  z-index: 10;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 6rem 1rem;
-}
-
-/* Section top edge blur fade — softens boundary with previous section */
-.section-sticky::after {
-  content: '';
-  position: absolute;
-  top: -60px;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, var(--bg));
-  z-index: 2;
-  pointer-events: none;
-}
-
-.section-works.section-sticky::after,
-.section-blog.section-sticky::after {
-  background: linear-gradient(to bottom, transparent, var(--bg-elevated));
-}
-
-.cta-section.section-sticky::after {
-  background: linear-gradient(to bottom, transparent, var(--bg-elevated));
 }
 
 /* Section background video */
