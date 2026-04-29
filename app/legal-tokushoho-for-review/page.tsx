@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ReviewHamburger, ReviewFooter } from "@/components/ReviewPageNav";
 
 export const metadata: Metadata = {
   title: "特定商取引法に基づく表記(審査用)",
@@ -35,6 +36,7 @@ export default function LegalTokushohoForReviewPage() {
         lineHeight: 1.6,
       }}
     >
+      <ReviewHamburger />
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
         <h1 style={{ fontSize: "1.5rem", marginBottom: "1.5rem" }}>
           特定商取引法に基づく表記
@@ -126,6 +128,8 @@ export default function LegalTokushohoForReviewPage() {
             </tr>
           </tbody>
         </table>
+
+        <ReviewFooter />
       </div>
     </div>
   );
