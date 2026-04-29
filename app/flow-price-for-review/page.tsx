@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ReviewHamburger, ReviewFooter } from "@/components/ReviewPageNav";
 
 export const metadata: Metadata = {
-  title: "商品概要(審査用)",
+  title: "商品概要",
   robots: {
     index: false,
     follow: false,
@@ -46,7 +46,7 @@ export default function FlowPriceForReviewPage() {
       <ReviewHamburger />
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <h1 style={{ fontSize: "1.5rem", marginBottom: "1.5rem" }}>
-          商品概要(審査用)
+          商品概要
         </h1>
 
         <div style={{ overflowX: "auto" }}>
@@ -66,7 +66,7 @@ export default function FlowPriceForReviewPage() {
             </thead>
             <tbody>
               <tr>
-                <td style={tdStyle}>動画編集スクール</td>
+                <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>動画編集スクール</td>
                 <td style={tdStyle}>
                   After Effects
                   初心者向けオンラインスクール。基礎から実践レベルまで学べます。
@@ -79,7 +79,7 @@ export default function FlowPriceForReviewPage() {
                 <td style={tdStyle}>3か月</td>
               </tr>
               <tr>
-                <td style={tdStyle}>動画編集コミュニティ</td>
+                <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>動画編集コミュニティ</td>
                 <td style={tdStyle}>
                   クリエイター向けオンラインコミュニティ。案件情報・スクール割引・交流会、・有料級素材を提供します。
                 </td>

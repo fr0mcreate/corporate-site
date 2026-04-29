@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ReviewHamburger, ReviewFooter } from "@/components/ReviewPageNav";
 
 export const metadata: Metadata = {
-  title: "特定商取引法に基づく表記(審査用)",
+  title: "特商法に基づく表記",
   robots: {
     index: false,
     follow: false,
@@ -39,7 +39,7 @@ export default function LegalTokushohoForReviewPage() {
       <ReviewHamburger />
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
         <h1 style={{ fontSize: "1.5rem", marginBottom: "1.5rem" }}>
-          特定商取引法に基づく表記
+          特商法に基づく表記
         </h1>
         <table
           border={1}
