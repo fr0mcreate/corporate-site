@@ -15,7 +15,6 @@ export default function Header() {
         { href: '/about', label: 'About' },
         { href: '/flow-price', label: 'Flow & Price' },
         { href: '/faq', label: 'FAQ' },
-        { href: '/blog', label: 'Blog' },
         { href: '/contact', label: 'Contact' },
     ];
 

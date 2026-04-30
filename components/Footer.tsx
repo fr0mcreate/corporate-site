@@ -8,7 +8,6 @@ export default function Footer() {
         { href: '/about', label: 'About' },
         { href: '/flow-price', label: 'Flow & Price' },
         { href: '/faq', label: 'FAQ' },
-        { href: '/blog', label: 'Blog' },
         { href: '/contact', label: 'Contact' },
         { href: '/privacy', label: 'Privacy Policy' },
         { href: '/legal-tokushoho', label: '特定商取引法に基づく表記' },

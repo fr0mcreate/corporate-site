@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { staticWorks, staticBlogPosts } from '@/lib/static-data';
+import { staticWorks } from '@/lib/static-data';
 import WorkCard from '@/components/WorkCard';
 import HeroCanvas from '@/components/HeroCanvas';
 import HeroVideo from '@/components/HeroVideo';
@@ -9,8 +9,6 @@ import SectionVideo from '@/components/SectionVideo';
 
 export default function HomePage() {
   const works = staticWorks.slice(0, 6);
-  const latestPosts = staticBlogPosts.filter(p => p.published);
-
   return (
     <>
       {/* ===== OPENING ===== */}
@@ -177,35 +175,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ===== BLOG ===== */}
-      {latestPosts.length > 0 && (
-        <section className="section section-blog" style={{ position: 'relative', overflow: 'clip' }}>
-          <SectionVideo src="/blog-bg-video.mp4" />
-          <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-            <header className="section-header">
-              <p className="section-kicker">STAGE 5 / BLOG</p>
-              <h2 className="glitch-text" data-text="Blog">Blog</h2>
-              <p>最新のお知らせ・ブログ記事</p>
-            </header>
-            <div className="cards-grid">
-              {latestPosts.map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="card blog-card" style={{ textDecoration: 'none' }}>
-                  <div className="card-corner card-corner-tl" /><div className="card-corner card-corner-tr" /><div className="card-corner card-corner-bl" /><div className="card-corner card-corner-br" />
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-                  <p style={{ fontSize: 'var(--small)', color: 'var(--text-dim)', marginTop: '0.5rem' }}>
-                    {new Date(post.createdAt).toLocaleDateString('ja-JP')}
-                  </p>
-                </Link>
-              ))}
-            </div>
-            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-              <Link href="/blog" className="btn btn-secondary">すべての記事を見る →</Link>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ===== CTA ===== */}
       <section className="cta-section" style={{ position: 'relative', overflow: 'clip' }}>

@@ -11,16 +11,6 @@ export interface WorkData {
     snsAccount?: string;
 }
 
-export interface BlogPostData {
-    id: number;
-    title: string;
-    slug: string;
-    content: string;
-    excerpt: string | null;
-    published: boolean;
-    createdAt: string;
-}
-
 export const staticWorks: WorkData[] = [
         { id: 2, category: 'corporate-pr', title: '大電株式会社 PV', thumbnail: '/images/works/corporate-pr-2.jpg', videoUrl: 'https://www.youtube.com/watch?v=gdySLDmhW1Q' },
     { id: 3, category: 'corporate-pr', title: '旭食品 第70回高知よさこい祭り', thumbnail: '/images/works/corporate-pr-3.jpg', videoUrl: 'https://www.youtube.com/watch?v=49Uj2h4f4Bs' },
@@ -54,23 +44,3 @@ export const staticWorks: WorkData[] = [
     { id: 31, category: 'sns-global', title: 'パゥです🇵🇭（6.4万フォロワー）', thumbnail: '/works/sns-pau-philippines.png', videoUrl: 'https://www.instagram.com/pau_philippines', snsPlatform: 'instagram', snsAccount: '@paudesuyon' },
 ];
 
-export const staticBlogPosts: BlogPostData[] = [
-    {
-        id: 1,
-        title: '映像制作の裏側：企業PVができるまで',
-        slug: 'behind-the-scenes-corporate-pv',
-        content: '# 映像制作の裏側：企業PVができるまで\n\n企業PR映像の制作プロセスを、実際のプロジェクトを例にご紹介します。\n\n## ヒアリング\n\nまず最初に行うのは、クライアント様へのヒアリングです。\n\n- 映像の目的は何か？\n- ターゲットは誰か？\n- どこで活用するのか？\n\nこれらの情報を踏まえて、最適な企画を立案します。\n\n## 企画・構成\n\nヒアリング内容をもとに、シナリオと絵コンテを作成します。\n\n## 撮影・編集\n\nプロのカメラマンと編集者がチームを組み、高品質な映像を制作します。\n\n## まとめ\n\n映像制作は「作って終わり」ではありません。活用シーンを見据えた制作を心がけています。',
-        excerpt: '企業PR映像の制作プロセスを、実際のプロジェクトを例にご紹介します。',
-        published: true,
-        createdAt: '2025-01-15T00:00:00.000Z',
-    },
-    {
-        id: 2,
-        title: 'SNS動画で成果を出す3つのポイント',
-        slug: 'sns-video-3-tips',
-        content: '# SNS動画で成果を出す3つのポイント\n\nSNSでの動画活用は、もはや企業にとって欠かせない戦略です。\n\n## 1. 最初の3秒が勝負\n\nSNSでは、最初の3秒で視聴者の心をつかめるかが重要です。\n\n## 2. プラットフォームに最適化\n\nInstagram、TikTok、YouTubeそれぞれに最適なフォーマットがあります。\n\n## 3. 一貫したブランディング\n\n投稿のトーン＆マナーを統一することで、ブランド認知を高めます。\n\n## まとめ\n\nFR0M CREATEでは、これらのポイントを踏まえたSNS動画制作・運用をサポートしています。',
-        excerpt: 'SNSでの動画活用で成果を出すための3つの重要ポイントをご紹介します。',
-        published: true,
-        createdAt: '2025-02-01T00:00:00.000Z',
-    },
-];

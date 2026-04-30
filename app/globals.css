@@ -2904,20 +2904,6 @@ body {
   line-height: 1.8;
 }
 
-/* Blog Card Enhancements */
-.blog-card {
-  transition: all 0.3s ease;
-}
-
-.blog-card:hover {
-  border-color: var(--accent2);
-  box-shadow: 0 0 15px rgba(0, 229, 255, 0.1), inset 0 0 30px rgba(0, 229, 255, 0.03);
-}
-
-.blog-card:hover .card-corner {
-  border-color: var(--accent2);
-}
-
 /* CTA Section Enhancement */
 .cta-section {
   position: relative;
@@ -3375,10 +3361,6 @@ main#main {
 }
 
 .section-works {
-  background: var(--bg-elevated);
-}
-
-.section-blog {
   background: var(--bg-elevated);
 }
 
